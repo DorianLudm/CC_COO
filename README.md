@@ -4,3 +4,4 @@
 THEAULT Thomas  
 LARROUY Joachim  
 LUDMANN Dorian  
+# CC_COO
