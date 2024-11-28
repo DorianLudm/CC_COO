@@ -1,3 +1,5 @@
-public class Ihm {
+package IHM;
+
+public class Ihm{
     
 }

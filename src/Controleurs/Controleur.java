@@ -1,5 +1,5 @@
 package Controleurs;
 
-public class Controleur {
+public class Controleur{
     
 }
