@@ -8,3 +8,4 @@ Ajouts :
 1) Reconnaissance des inputs de déplacement et de l'intéraction jusqu'à Map  
 2) Méthodes de Map(vides)
 3) Méthode main dans l'ihm pour les tests rudimentaires  
+
