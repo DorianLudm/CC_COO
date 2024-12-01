@@ -1,9 +1,12 @@
 package Modele;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Map{
 
-    //private List<MapObject> mapNpcElements;
-    //private List<MapObject> mapFixedElements;
+    private List<MapObject> mapNpcElements;
+    private List<MapObject> mapFixedElements;
 
     /***/
     public Map(){}
