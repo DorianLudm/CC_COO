@@ -10,31 +10,13 @@ public class ControleurMouvement {
 
     public ControleurMouvement(Ihm ihm) {
         this.ihm = ihm;
-        this.map = new Map(5,5);
+        this.map = new Map(30,30);
     }
 
     public Map getMap() { return map; }
 
     // --- Movement Functions --- //
-    public void up_movement() {
-        map.movePlayer("top");
-        ihm.printValidationMouvement("Mouvement vers le haut");
+    public void movement(String direction){
+        map.movePlayer(direction);
     }
-
-    public void down_movement() {
-        map.movePlayer("bottom");
-        ihm.printValidationMouvement("Mouvement vers le bas");
-    }
-
-    public void left_movement() {
-        map.movePlayer("left");
-        ihm.printValidationMouvement("Mouvement vers la gauche");
-    }
-
-    public void right_movement() {
-        map.movePlayer("right");
-        ihm.printValidationMouvement("Mouvement vers la droite");
-    }
-
-    
 }

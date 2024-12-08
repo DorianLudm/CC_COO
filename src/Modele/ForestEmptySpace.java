@@ -6,6 +6,7 @@ public class ForestEmptySpace extends EmptySpace{
         setBgColor("\u001B[42m");
         setFontColor("");
         setRepresentation(" ");
+        reachable = true;
     }
 
     public void play(String map){}

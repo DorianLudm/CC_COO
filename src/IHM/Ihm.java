@@ -1,6 +1,5 @@
 package IHM;
 
-import Controleurs.Controleur;
 import Controleurs.ControleurMouvement;
 import Modele.Map;
 
@@ -28,16 +27,16 @@ public class Ihm{
 
                 switch (scInput){
                     case "z":
-                        ctlMouvement.up_movement();
+                        ctlMouvement.movement("top");
                         break;
                     case "s":
-                        ctlMouvement.down_movement();
+                        ctlMouvement.movement("bottom");
                         break;
                     case "q":
-                        ctlMouvement.left_movement();
+                        ctlMouvement.movement("left");
                         break;
                     case "d":
-                        ctlMouvement.right_movement();
+                        ctlMouvement.movement("right");
                         break;
                 }
             }
