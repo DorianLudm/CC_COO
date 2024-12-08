@@ -5,26 +5,29 @@ import java.util.ArrayList;
 
 public class Map{
 
-    private String[][] map;
-
-    private List<MapObject> mapNpcElements;
-    private List<MapObject> mapFixedElements;
+    private MapObject[][] map;
+    private MapObject player;
 
     /***/
     public Map(){
-        MapObject test = new Player();
-        System.out.println(test.getRepresentation());
+        player = new Player();
+
     }
 
     public Map(int x, int y){
-        map = new String[x][y];
+        map = new MapObject[x][y];
+        player = new Player();
 
         MapObject tile = new ForestEmptySpace();
         for(int i=0; i<x; i++){
             for(int j=0; j<y; j++){
-                map[i][j] = tile.getRepresentation();
+                map[i][j] = tile;
             }
         }
+
+        map[2][2] = new Acorn();
+        map[0][0] = player;
+
     }
 
     /***/
@@ -38,7 +41,6 @@ public class Map{
 
     /***/
     public void movePlayer(String direction){
-        // player move
         // NPCturn();
     }
 
@@ -50,6 +52,14 @@ public class Map{
 
     @Override
     public String toString() {
-        return "Map";
+        String s = "";
+
+        for (int i = 0; i < this.map.length; i++) {
+            for (int j = 0; j < this.map[i].length; j++) {
+                s += this.map[i][j].getRepresentation();
+            }
+            s += "\n";
+        }
+        return s;
     }
 }

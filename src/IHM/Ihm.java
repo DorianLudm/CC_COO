@@ -9,15 +9,19 @@ import java.util.Scanner;
 public class Ihm{
 
     private ControleurMouvement ctlMouvement;
+    private Map map;
 
     public Ihm(){
         ctlMouvement = new ControleurMouvement(this);
+        map = ctlMouvement.getMap();
 
         Scanner sc = new Scanner(System.in);
         String scInput = "";
 
         while(true){
             try {
+                System.out.println(map);
+
                 if (sc.hasNext()){
                     scInput = sc.next();
                 }
@@ -45,15 +49,10 @@ public class Ihm{
 
     /**/
     public void maj(Map map){
-
     }
 
 
     // --- INTERACTIONS APPLICATION -> USER --- //
-
-    public void printMap(Map map){
-        System.out.println(map);
-    }
 
     public void printValidationMouvement(String s){
         System.out.println(s);

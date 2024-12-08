@@ -10,8 +10,10 @@ public class ControleurMouvement {
 
     public ControleurMouvement(Ihm ihm) {
         this.ihm = ihm;
-        this.map = new Map();
+        this.map = new Map(5,5);
     }
+
+    public Map getMap() { return map; }
 
     // --- Movement Functions --- //
     public void up_movement() {
