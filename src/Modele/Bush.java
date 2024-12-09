@@ -8,5 +8,6 @@ public class Bush extends Decoration{
         setRepresentation("B");
     }
 
-    public void play(String map){}
+    @Override
+    public void attacked(MapObject[][] map){}
 }

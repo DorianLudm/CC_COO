@@ -8,5 +8,6 @@ public class JungleMushroom extends Mushroom{
         setRepresentation("C");
     }
 
-    public void play(String map){}
+    @Override
+    public void attacked(MapObject[][] map){}
 }

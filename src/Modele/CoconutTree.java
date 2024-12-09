@@ -8,5 +8,6 @@ public class CoconutTree extends Tree{
         setRepresentation("G");
     }
 
-    public void play(String map){}
+    @Override
+    public void attacked(MapObject[][] map){}
 }

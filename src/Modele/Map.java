@@ -1,8 +1,5 @@
 package Modele;
 
-import java.util.List;
-import java.util.ArrayList;
-
 public class Map{
 
     private MapObject[][] map;
@@ -26,6 +23,9 @@ public class Map{
 
         map[2][2] = new Acorn();
         map[25][4] = new ForestTree();
+        map[3][2] = new ForestTree();
+        map[3][4] = new ForestMushroom();
+        map[6][6] = new Squirrel();
         map[0][0] = player;
     }
 
@@ -36,7 +36,14 @@ public class Map{
     public void generateMap(String biome){}
 
     /***/
-    private void NPCturn(){}
+    private void NPCturn(){
+        for(MapObject[] obj1: this.map){
+            for(MapObject obj2: obj1){
+                Integer[] pos = new Integer[2];
+                pos = obj2.play(map);
+            }
+        }
+    }
 
     /***/
     public void movePlayer(String direction){
@@ -76,14 +83,24 @@ public class Map{
                 System.out.println("error");
         }
 
-        // NPCturn();
+        NPCturn();
     }
 
     /***/
-    public void playerFight(){}
+    public void playerFight(){
+        // implementation
+        // int x_attack, y_attack
+        // map[x_attack][y_attack].
+
+        NPCturn();
+    }
 
     /***/
-    public void playerInteract(){}
+    public void playerInteract(){
+        // implementation
+
+        NPCturn();
+    }
 
     @Override
     public String toString() {

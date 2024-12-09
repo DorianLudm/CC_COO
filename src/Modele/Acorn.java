@@ -8,5 +8,6 @@ public class Acorn extends Fruit{
         setRepresentation("G");
     }
 
-    public void play(String map){}
+    @Override
+    public void attacked(MapObject[][] map){}
 }

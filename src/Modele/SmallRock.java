@@ -8,5 +8,5 @@ public class SmallRock extends Decoration{
         setRepresentation("X");
     }
 
-    public void play(String map){}
+    public void attacked(MapObject[][] map){}
 }

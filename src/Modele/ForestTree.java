@@ -8,5 +8,6 @@ public class ForestTree extends Tree{
         setRepresentation("A");
     }
 
-    public void play(String map){}
+    @Override
+    public void attacked(MapObject[][] map){}
 }

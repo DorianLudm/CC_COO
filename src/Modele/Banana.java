@@ -8,5 +8,6 @@ public class Banana extends Fruit{
         setRepresentation("B");
     }
 
-    public void play(String map){}
+    @Override
+    public void attacked(MapObject[][] map){}
 }

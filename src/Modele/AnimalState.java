@@ -1,5 +1,6 @@
 package Modele;
 
 public abstract class AnimalState {
-    public abstract void play(String map, Animal animal);
+    public abstract Integer[] play(MapObject[][] map, Animal animal);
+    public abstract void attacked(MapObject[][] map, Animal animal);
 }
