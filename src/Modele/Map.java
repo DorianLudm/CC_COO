@@ -1,26 +1,70 @@
 package Modele;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Map{
 
     private MapObject[][] map;
     private Player player;
-
+    private Factory factorytype;
     /***/
-    public Map(){
-        player = new Player(0,0);
-    }
+    public Map(){}
+    /***/
 
-    public Map(int x, int y){
+    public Map(int x, int y, String biome){         // map générer.
+        switch(biome){
+            case "forest" :
+                this.factorytype = new ForestFactory();
+                break;
+            case "jungle" :
+                this.factorytype = new JungleFactory();
+                break;
+        }
+        double[][] repartition = generateWave(x,y);
         map = new MapObject[x][y];
-        player = new Player(0,0);
-
-        MapObject tile = new ForestEmptySpace();
-        for(int i=0; i<x; i++){
-            for(int j=0; j<y; j++){
-                map[i][j] = tile;
+        for(int i = 0; i < x; i++){
+            for(int j = 0; j < y; j++){
+                if(repartition[i][j] > 0.75){
+                    map[i][j] = factorytype.instanciateDecoration();
+                }else if(repartition[i][j] > 0.73){
+                    map[i][j] = factorytype.instanciateAnimal();
+                }else if(repartition[i][j]>0.71) {
+                    map[i][j] = factorytype.instanciateFruit();
+                }else if(repartition[i][j] > 0.58){
+                    map[i][j] = factorytype.instanciatEmptySpace();
+                }else if(repartition[i][j] < 0.56){
+                    map[i][j] = factorytype.instanciateTree();
+                }
+                else {
+                    map[i][j] = factorytype.instanciateMushroom();
+                }
             }
         }
+        player = new Player(5,5);
+        map[player.getPosX()][player.getPosY()] = player;
+    }
+    /***/
 
+    private double[][] generateWave(int x, int y) {
+        double[][] result = new double[x][y];
+        Random rand = new Random();
+        for (int nbpt = 0; nbpt < 40; nbpt++) {
+            int irand = rand.nextInt(x);
+            int jrand = rand.nextInt(y);
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y; j++) {
+                    double distance = Math.sqrt(Math.pow(i - irand, 2) + Math.pow(j - jrand, 2));
+                    result[i][j] += 0.025 * Math.abs(Math.sin(distance));
+                }
+            }
+        }
+        return result;
+    }
+    /***/
+
+    public Map(int x, int y,String biome, String fichier){
         map[2][2] = new Acorn();
         map[25][4] = new ForestTree();
         map[3][2] = new ForestTree();
@@ -33,7 +77,9 @@ public class Map{
     public void loadMap(String biome){}
 
     /***/
-    public void generateMap(String biome){}
+    public void generateMap(String biome){
+
+    }
 
     /***/
     private void NPCturn(){

@@ -11,10 +11,14 @@ public class Ihm{
     private Map map;
 
     public Ihm(){
-        ctlMouvement = new ControleurMouvement(this);
+        Scanner sc = new Scanner(System.in);
+        String biome = "";
+        if (sc.hasNext()){
+            biome = sc.next().toLowerCase();
+        }
+        ctlMouvement = new ControleurMouvement(this, biome);
         map = ctlMouvement.getMap();
 
-        Scanner sc = new Scanner(System.in);
         String scInput = "";
 
         while(true){
@@ -61,6 +65,7 @@ public class Ihm{
 
     /// --- Main test --- ///
     public static void main(String[] args){
+
         Ihm ihm = new Ihm();
     }
 }
