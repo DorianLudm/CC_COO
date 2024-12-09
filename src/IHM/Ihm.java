@@ -65,7 +65,6 @@ public class Ihm{
 
     /// --- Main test --- ///
     public static void main(String[] args){
-
         Ihm ihm = new Ihm();
     }
 }

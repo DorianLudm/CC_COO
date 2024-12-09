@@ -7,6 +7,7 @@ public class NotHungryState extends AnimalState{
         res[0] = null;
 
         System.out.println("Comportement normal d'un animal!");
+        System.out.println("Cet animal est en "+animal.posX+" "+animal.posY);
         animal.current_hunger--;
         if(animal.current_hunger == 0){
             animal.currentState = new HungryState();

@@ -1,27 +1,27 @@
 package Modele;
 
 public class JungleFactory implements Factory{
-    public Animal instanciateAnimal(){
-        return new Monkey();
+    public Animal instanciateAnimal(int x, int y){
+        return new Monkey(x, y);
     }
 
-    public Tree instanciateTree(){
-        return new CoconutTree();
+    public Tree instanciateTree(int x, int y){
+        return new CoconutTree(x, y);
     }
 
-    public Decoration instanciateDecoration(){
-        return new SmallRock();
+    public Decoration instanciateDecoration(int x, int y){
+        return new SmallRock(x, y);
     }
 
-    public Fruit instanciateFruit(){
-        return new Banana();
+    public Fruit instanciateFruit(int x, int y){
+        return new Banana(x, y);
     }
 
-    public EmptySpace instanciatEmptySpace(){
-        return new JungleEmptySpace();
+    public EmptySpace instanciatEmptySpace(int x, int y){
+        return new JungleEmptySpace(x, y);
     }
 
-    public Mushroom instanciateMushroom(){
-        return new JungleMushroom();
+    public Mushroom instanciateMushroom(int x, int y){
+        return new JungleMushroom(x, y);
     }
 }

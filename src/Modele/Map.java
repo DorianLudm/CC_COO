@@ -1,7 +1,5 @@
 package Modele;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Map{
@@ -13,7 +11,7 @@ public class Map{
     public Map(){}
     /***/
 
-    public Map(int x, int y, String biome){         // map générer.
+    public Map(int x, int y, String biome){ // map générer.
         switch(biome){
             case "forest" :
                 this.factorytype = new ForestFactory();
@@ -27,18 +25,18 @@ public class Map{
         for(int i = 0; i < x; i++){
             for(int j = 0; j < y; j++){
                 if(repartition[i][j] > 0.75){
-                    map[i][j] = factorytype.instanciateDecoration();
+                    map[i][j] = factorytype.instanciateDecoration(i, j);
                 }else if(repartition[i][j] > 0.73){
-                    map[i][j] = factorytype.instanciateAnimal();
+                    map[i][j] = factorytype.instanciateAnimal(i, j);
                 }else if(repartition[i][j]>0.71) {
-                    map[i][j] = factorytype.instanciateFruit();
+                    map[i][j] = factorytype.instanciateFruit(i, j);
                 }else if(repartition[i][j] > 0.58){
-                    map[i][j] = factorytype.instanciatEmptySpace();
+                    map[i][j] = factorytype.instanciatEmptySpace(i, j);
                 }else if(repartition[i][j] < 0.56){
-                    map[i][j] = factorytype.instanciateTree();
+                    map[i][j] = factorytype.instanciateTree(i, j);
                 }
                 else {
-                    map[i][j] = factorytype.instanciateMushroom();
+                    map[i][j] = factorytype.instanciateMushroom(i, j);
                 }
             }
         }
@@ -65,12 +63,12 @@ public class Map{
     /***/
 
     public Map(int x, int y,String biome, String fichier){
-        map[2][2] = new Acorn();
-        map[25][4] = new ForestTree();
-        map[3][2] = new ForestTree();
-        map[3][4] = new ForestMushroom();
-        map[6][6] = new Squirrel();
-        map[0][0] = player;
+        // map[2][2] = new Acorn();
+        // map[25][4] = new ForestTree();
+        // map[3][2] = new ForestTree();
+        // map[3][4] = new ForestMushroom();
+        // map[6][6] = new Squirrel();
+        // map[0][0] = player;
     }
 
     /***/
@@ -100,28 +98,28 @@ public class Map{
             case "top":
                 if (map[playerPosY-1][playerPosX].isReachable()){
                     map[playerPosY-1][playerPosX] = player;
-                    map[playerPosY][playerPosX] = new ForestEmptySpace();
+                    map[playerPosY][playerPosX] = new ForestEmptySpace(playerPosY, playerPosX);
                     player.moveTop();
                 }
                 break;
             case "bottom":
                 if (map[playerPosY+1][playerPosX].isReachable()){
                     map[playerPosY+1][playerPosX] = player;
-                    map[playerPosY][playerPosX] = new ForestEmptySpace();
+                    map[playerPosY][playerPosX] = new ForestEmptySpace(playerPosY, playerPosX);
                     player.moveBottom();
                 }
                 break;
             case "left":
                 if (map[playerPosY][playerPosX-1].isReachable()){
                     map[playerPosY][playerPosX-1] = player;
-                    map[playerPosY][playerPosX] = new ForestEmptySpace();
+                    map[playerPosY][playerPosX] = new ForestEmptySpace(playerPosY, playerPosX);
                     player.moveLeft();
                 }
                 break;
             case "right":
                 if (map[playerPosY][playerPosX+1].isReachable()){
                     map[playerPosY][playerPosX+1] = player;
-                    map[playerPosY][playerPosX] = new ForestEmptySpace();
+                    map[playerPosY][playerPosX] = new ForestEmptySpace(playerPosY, playerPosX);
                     player.moveRight();
                 }
                 break;
