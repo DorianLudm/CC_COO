@@ -25,7 +25,6 @@ public abstract class Animal extends MapObject{
         } else if (newState instanceof NotHungryState) {
             this.setFontColor("\u001B[34m");
         } else if (newState instanceof FriendlyState) {
-            System.out.println("AMIIIIIIIIII");
             this.setFontColor("\u001B[35m");
         }
     }

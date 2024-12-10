@@ -29,10 +29,11 @@ public class HungryState extends AnimalState{
         }
         if (toEat != null) {
             int foodX = toEat.getPosX(); int foodY = toEat.getPosY();
-            int playerX = Player.getInstance().getPosX(); int playerY = Player.getInstance().getPosY();
             // Check if the player is around the food the animal is going to eat and set the according state
-            boolean befriend = (Math.abs(foodX - playerX) == 1 && foodY == playerY) || (foodX == playerX && Math.abs(foodY - playerY) == 1);
-            animal.current_friendship = befriend ? animal.current_friendship++ : 0;
+            MapObject[] foodSurroundings = Map.getInstance().getSurroudings(foodX, foodY);
+            boolean befriend = false;
+            for(MapObject obj: foodSurroundings){if(obj instanceof Player){befriend = true;}}
+            animal.current_friendship = befriend ? animal.current_friendship+1 : 0;
             animal.setEtat(animal.current_friendship == animal.getMaxFriendship() ? new FriendlyState() : new NotHungryState());
             animal.current_hunger = animal.getMaxHunger();
             map[toEat.getPosX()][toEat.getPosY()] = animal;

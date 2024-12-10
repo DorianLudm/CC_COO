@@ -20,7 +20,7 @@ public abstract class MapObject{
     public boolean isReachable(){ return reachable; }
 
     public void setBgColor(String bgColor){ this.bgColor = bgColor; }
-    public void setFontColor(String fontColor){ this.fontColor = fontColor; }
+    public void setFontColor(String fontColor){ this.fontColor = fontColor;}
     public void setRepresentation(String representation){ this.representation = representation; }
 
     public void play(MapObject[][] map){if(this.hasPlayed){return;} this.hasPlayed = true;}

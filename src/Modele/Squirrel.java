@@ -10,9 +10,9 @@ public class Squirrel extends Animal{
         setBgColor("\u001B[43m");
         setFontColor("\u001B[30m");
         setRepresentation("E");
-        this.setEtat(new NotHungryState());
         this.current_hunger = MAX_HUNGER;
         this.current_friendship = 0;
+        this.setEtat(new NotHungryState());
     }
 
     public int getMaxHunger(){return MAX_HUNGER;}
