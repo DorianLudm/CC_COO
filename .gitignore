@@ -26,3 +26,7 @@ replay_pid*
 # IntelliJ IDEA
 .idea/
 *.iml
+
+#Compilation Repository
+/out/
+*.class

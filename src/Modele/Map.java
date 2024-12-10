@@ -230,22 +230,22 @@ public class Map{
     public String toString() {
         String s = "";
 
-        int largeur = map.length;
-        int hauteur = map[0].length;
+        int hauteur = map.length;
+        int largeur = map[0].length;
 
         // Calcul des indices de début et de fin
-        int startX = Math.max(0, player.getPosX() - 20 / 2);
-        int startY = Math.max(0, player.getPosY() - 15 / 2);
-        int endX = Math.min(largeur, startX + 20);
-        int endY = Math.min(hauteur, startY + 15);
+        int startX = Math.max(0, player.getPosX() - 15 / 2);
+        int startY = Math.max(0, player.getPosY() - 20 / 2);
+        int endX = Math.min(hauteur, startX + 15);
+        int endY = Math.min(largeur, startY + 20);
 
         // Ajustement si la fin dépasse les bords
-        startX = Math.max(0, endX - 20);
-        startY = Math.max(0, endY - 15);
+        startX = Math.max(0, endX - 15);
+        startY = Math.max(0, endY - 20);
 
-        for (int i = startY; i < endY; i++) {
-            for (int j = startX; j < endX; j++) {
-                s += map[j][i].getRepresentation();
+        for (int i = startX; i < endX; i++) {
+            for (int j = startY; j < endY; j++) {
+                s += map[i][j].getRepresentation();
             }
             s += "\n";
         }
