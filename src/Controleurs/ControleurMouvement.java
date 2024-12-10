@@ -16,5 +16,6 @@ public class ControleurMouvement {
     // --- Movement Functions --- //
     public void movement(int indDirection){
         map.movePlayer(indDirection);
+        ihm.maj(map.toString());
     }
 }

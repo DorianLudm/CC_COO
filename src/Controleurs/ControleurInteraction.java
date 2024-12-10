@@ -15,10 +15,12 @@ public class ControleurInteraction {
 
     public void attack(int indDirection){
         map.playerFight(indDirection);
+        ihm.maj(map.toString());
     }
 
     public void pickUp(int indDirection){
         map.playerPickUp(indDirection);
+        ihm.maj(map.toString());
     }
 
 }

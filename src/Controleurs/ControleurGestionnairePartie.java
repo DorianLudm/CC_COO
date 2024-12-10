@@ -19,4 +19,8 @@ public class ControleurGestionnairePartie {
         this.map = map;
         map.initFromTxt(chemin);
     }
+
+    public void startGame(){
+        ihm.maj(map.toString());
+    }
 }
