@@ -1,5 +1,7 @@
 package Modele;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 public class Map{
@@ -39,8 +41,75 @@ public class Map{
                 }
             }
         }
-        player = Player.getInstance(5,5);
+        player = Player.getInstance(x/2,y/2);
         map[player.getPosX()][player.getPosY()] = player;
+    }
+
+    public void initFromTxt(String path){
+        try (FileReader fileReader = new FileReader(path)) {
+            int line = 0;int x =0;int y = 0;int posy = 0;
+            int caractere;
+            while ((caractere = fileReader.read()) != -1) {
+                char c = (char) caractere;
+                if(line == 0){
+                    switch(c){
+                        case 'F':
+                            this.factory = new ForestFactory();
+                            break;
+                        case 'J':
+                            this.factory = new JungleFactory();
+                            break;
+                    }
+                }else if(line == 1 && caractere >= '0'){
+                    x = x * 10 + caractere - '0';
+                }else if(line == 2 && caractere >= '0') {
+                    y = y * 10 + caractere - '0';
+                }
+                if(c==10 && line == 2){
+                    map = new MapObject[x][y];
+                    System.out.println("x" + x + "y" + y);
+                    for(int j = 0; j < x; j++){
+                        for(int k = 0; k < y; k++){
+                            map[j][k] = factory.instanciatEmptySpace(j, k);
+                        }
+                    }
+                }if(c == 10){
+                    line++;posy = 0;
+                    continue;
+                }else if(c == 13){
+                    continue;
+                }else{
+                    switch(c){
+                        case 'A':
+                            map[line-3][posy] = this.factory.instanciateTree(line-3,posy);
+                            break;
+                        case 'G':
+                            map[line-3][posy] = this.factory.instanciateFruit(line-3,posy);
+                            break;
+                        case 'E':
+                            map[line-3][posy] = this.factory.instanciateAnimal(line-3,posy);
+                            break;
+                        case 'B':
+                            map[line-3][posy] = this.factory.instanciateDecoration(line-3,posy);
+                            break;
+                        case ' ':
+                            map[line-3][posy] = this.factory.instanciatEmptySpace(line-3,posy);
+                            break;
+                        case 'C':
+                            map[line-3][posy] = this.factory.instanciateMushroom(line-3,posy);
+                            break;
+                        case '@':
+                            System.out.println(line-3 + " " + posy);
+                            player=Player.getInstance(line-3,posy);
+                            map[player.getPosX()][player.getPosY()] = player;
+                            break;
+                    }
+                }
+                posy++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /***/
 
@@ -172,7 +241,7 @@ public class Map{
 
         for (int i = startY; i < endY; i++) {
             for (int j = startX; j < endX; j++) {
-                s += map[i][j].getRepresentation();
+                s += map[j][i].getRepresentation();
             }
             s += "\n";
         }

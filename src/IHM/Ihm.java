@@ -25,6 +25,7 @@ public class Ihm{
                 typeMapGen = sc.next();
             }
             if(typeMapGen.equals("n")){
+                int x =0;int y=0;
                 List<String> valideBiome = new ArrayList<>();  // Liste des biomes existants
                 valideBiome.add("jungle");
                 valideBiome.add("forest"); // rajouter ici les biomes implémentés ultérieurement
@@ -44,10 +45,24 @@ public class Ihm{
                         }
                     }
                 }
-                ctlMouvement = new ControleurMouvement(this, this.map, biome);
+                while(true){
+                    System.out.println("Quelle dimension de carte : longueur largeur");
+                    if(sc.hasNextInt()) {
+                        x = sc.nextInt();
+                    }if(sc.hasNextInt()) {
+                        y = sc.nextInt();
+                    }
+                    if(x > 0&& y > 0 ){
+                        break;
+                    }
+                }
+                ctlMouvement = new ControleurMouvement(this, this.map,x,y, biome);
                 ctlInteraction = new ControleurInteraction(this, this.map);
                 break;
             }if(typeMapGen.equals("y")){
+                String chemin = "./lib/carte.txt";
+                ctlMouvement = new ControleurMouvement(this, this.map,chemin);
+                ctlInteraction = new ControleurInteraction(this, this.map);
                 break;
             }
         }
@@ -104,6 +119,7 @@ public class Ihm{
             catch (Exception e){
                 //System.out.println(e.getMessage());
                 e.printStackTrace();
+                break;
             }
         }
     }
