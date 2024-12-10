@@ -160,7 +160,7 @@ public class Map{
         NPCturn();
     }
 
-    public MapObject[] getSurroudings(MapObject[][] map, int x, int y){
+    public MapObject[] getSurroudings(int x, int y){
         MapObject[] res = new MapObject[4];
         res[0] = (x > 0) ? map[x - 1][y] : null;
         res[1] = (y > 0) ? map[x][y - 1] : null;

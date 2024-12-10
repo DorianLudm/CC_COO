@@ -10,12 +10,12 @@ public class NotHungryState extends AnimalState{
         animal.hasPlayed = true;
         animal.current_hunger--;
         if(animal.current_hunger == 0){
-            animal.currentState = new HungryState();
+            animal.setEtat(new HungryState());
         }
 
         int x = animal.getPosX(); int y =  animal.getPosY();
         ArrayList<EmptySpace> moveSpaces = new ArrayList<>();
-        for(MapObject obj: Map.getInstance().getSurroudings(map, x, y)){
+        for(MapObject obj: Map.getInstance().getSurroudings(x, y)){
             if(obj instanceof EmptySpace){moveSpaces.add((EmptySpace) obj);}
         }
 

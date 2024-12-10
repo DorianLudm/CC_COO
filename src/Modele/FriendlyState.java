@@ -6,12 +6,12 @@ public class FriendlyState extends AnimalState{
         animal.current_hunger--;
         animal.hasPlayed = true;
         if(animal.current_hunger == 0){
-            animal.currentState = new HungryState();
+            animal.setEtat(new HungryState());
         }
     }
 
     @Override
     public void attacked(MapObject[][] map, Animal animal){
-        animal.currentState = animal.current_hunger == 0 ? new HungryState() : new NotHungryState();
+        animal.setEtat(animal.current_hunger == 0 ? new HungryState() : new NotHungryState());
     }
 }
