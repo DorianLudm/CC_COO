@@ -12,6 +12,6 @@ public class FriendlyState extends AnimalState{
 
     @Override
     public void attacked(MapObject[][] map, Animal animal){
-        animal.currentState = animal.getMaxHunger() == animal.current_hunger ? new NotHungryState() : new HungryState();
+        animal.currentState = animal.current_hunger == 0 ? new HungryState() : new NotHungryState();
     }
 }
