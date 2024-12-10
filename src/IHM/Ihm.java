@@ -84,6 +84,7 @@ public class Ihm{
                 else if (scInputAction.equals("attack")) {
                     continue;
                 }
+                System.out.println(scInputAction);
                 switch (scInputAction) {
                     case "z":
                         ctlMouvement.movement(0);
@@ -91,10 +92,10 @@ public class Ihm{
                     case "q":
                         ctlMouvement.movement(1);
                         break;
-                    case "d":
+                    case "s":
                         ctlMouvement.movement(2);
                         break;
-                    case "s":
+                    case "d":
                         ctlMouvement.movement(3);
                         break;
                 }

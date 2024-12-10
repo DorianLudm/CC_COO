@@ -105,14 +105,15 @@ public class Map{
 
     /***/
     public void movePlayer(int indDirection){
-        int playerPosX = player.posX;
-        int playerPosY = player.posY;
+        int playerPosX = player.posX; // lignes
+        int playerPosY = player.posY; // colonnes
 
         MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
 
         if (voisin.isReachable()){
-            map[voisin.posY][voisin.posX] = player;
-            map[playerPosY][playerPosX] = factory.instanciatEmptySpace(playerPosX, playerPosY);
+
+            map[voisin.posX][voisin.posY] = player;
+            map[playerPosX][playerPosY] = factory.instanciatEmptySpace(playerPosX, playerPosY);
             player.posX = voisin.posX;
             player.posY = voisin.posY;
         }
@@ -140,7 +141,6 @@ public class Map{
             player.addItem(voisin);
             map[voisin.posX][voisin.posY] = factory.instanciatEmptySpace(voisin.posX, voisin.posY);
         }
-
         NPCturn();
     }
 
