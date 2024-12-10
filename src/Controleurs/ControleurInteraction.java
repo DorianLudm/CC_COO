@@ -13,11 +13,12 @@ public class ControleurInteraction {
         this.map = map;
     }
 
-    public void attack(){}
+    public void attack(int indDirection){
+        map.playerFight(indDirection);
+    }
 
     public void pickUp(int indDirection){
         map.playerPickUp(indDirection);
     }
-
 
 }

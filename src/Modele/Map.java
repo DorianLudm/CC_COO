@@ -195,10 +195,9 @@ public class Map{
     }
 
     /***/
-    public void playerFight(){
-        // implementation
-        // int x_attack, y_attack
-        // map[x_attack][y_attack].
+    public void playerFight(int indDirection){
+        MapObject voisin = getSurroudings(player.posX,player.posY)[indDirection];
+        voisin.attacked(map);
 
         NPCturn();
     }

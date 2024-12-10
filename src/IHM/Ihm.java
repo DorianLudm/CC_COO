@@ -1,6 +1,6 @@
 package IHM;
 
-import Controleurs.ControleurInteraction;
+import Controleurs  .ControleurInteraction;
 import Controleurs.ControleurMouvement;
 import Modele.Map;
 
@@ -97,9 +97,23 @@ public class Ihm{
                     }
                 }
                 else if (scInputAction.equals("attack")) {
-                    continue;
+                    System.out.println("Dans quelle direction voulez-vous attaquer? (z,q,s,d)");
+                    scInputDirection = sc.next();
+                    switch (scInputDirection) {
+                        case "z":
+                            ctlInteraction.attack(0);
+                            break;
+                        case "q":
+                            ctlInteraction.attack(1);
+                            break;
+                        case "d":
+                            ctlInteraction.attack(2);
+                            break;
+                        case "s":
+                            ctlInteraction.attack(3);
+                            break;
+                    }
                 }
-                System.out.println(scInputAction);
                 switch (scInputAction) {
                     case "z":
                         ctlMouvement.movement(0);
