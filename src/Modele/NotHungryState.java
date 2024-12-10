@@ -6,6 +6,8 @@ import java.util.Random;
 public class NotHungryState extends AnimalState{
     @Override
     public void play(MapObject[][] map, Animal animal){
+        if (animal.hasPlayed){return;}
+        animal.hasPlayed = true;
         animal.current_hunger--;
         if(animal.current_hunger == 0){
             animal.currentState = new HungryState();

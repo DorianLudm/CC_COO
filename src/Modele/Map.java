@@ -96,6 +96,11 @@ public class Map{
                 obj2.play(map);
             }
         }
+        for(MapObject[] obj1: this.map){
+            for(MapObject obj2: obj1){
+                obj2.resetHasPlayed();
+            }
+        }
     }
 
     /***/

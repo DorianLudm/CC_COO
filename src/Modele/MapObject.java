@@ -8,6 +8,7 @@ public abstract class MapObject{
     protected int posX;
     protected int posY;
     protected boolean reachable = false;
+    protected boolean hasPlayed = false;
 
     public int getPosX() { return posX; }
     public int getPosY() { return posY; }
@@ -22,7 +23,9 @@ public abstract class MapObject{
     public void setFontColor(String fontColor){ this.fontColor = fontColor; }
     public void setRepresentation(String representation){ this.representation = representation; }
 
-    public void play(MapObject[][] map){}
+    public void play(MapObject[][] map){if(this.hasPlayed){return;} this.hasPlayed = true;}
     public abstract void attacked(MapObject[][] map);
     protected void setCoords(int x, int y){posX = x; posY = y;}
+    public boolean hasPlayed(){return this.hasPlayed;}
+    protected void resetHasPlayed(){this.hasPlayed = false;}
 }

@@ -14,6 +14,8 @@ public class HungryState extends AnimalState{
 
     @Override
     public void play(MapObject[][] map, Animal animal){
+        if (animal.hasPlayed){return;}
+        animal.hasPlayed = true;
         int x = animal.getPosX();
         int y =  animal.getPosY();
 
