@@ -15,7 +15,7 @@ public class ControleurMouvement {
     }
 
     // --- Movement Functions --- //
-    public void movement(String direction){
-        map.movePlayer(direction);
+    public void movement(int indDirection){
+        map.movePlayer(indDirection);
     }
 }

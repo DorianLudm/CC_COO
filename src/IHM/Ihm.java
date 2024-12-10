@@ -1,5 +1,6 @@
 package IHM;
 
+import Controleurs.ControleurInteraction;
 import Controleurs.ControleurMouvement;
 import Modele.Map;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public class Ihm{
 
     private ControleurMouvement ctlMouvement;
+    private ControleurInteraction ctlInteraction;
     private Map map;
 
     public Ihm(){
@@ -43,35 +45,60 @@ public class Ihm{
                     }
                 }
                 ctlMouvement = new ControleurMouvement(this, this.map, biome);
+                ctlInteraction = new ControleurInteraction(this, this.map);
                 break;
             }if(typeMapGen.equals("y")){
                 break;
             }
         }
 
-        String scInput = "";
+        String scInputAction = "";
+        String scInputDirection = "";
+
         while(true){
             try {
                 System.out.println(map);
-
+                System.out.println("Choisisez une action à effectuer :\n- 'pick' pour ramasser un objet\n- 'attack' pour attaquer un animal\n- (z,q,s,d) pour vous déplacer");
                 if (sc.hasNext()){
-                    scInput = sc.next();
+                    scInputAction = sc.next();
                 }
 
-                switch (scInput){
+                if (scInputAction.equals("pick")){
+                    System.out.println("Dans quelle direction voulez-vous ramasser un objet ? (z,q,s,d)");
+                    scInputDirection = sc.next();
+                    switch (scInputDirection) {
+                        case "z":
+                            ctlInteraction.pickUp(0);
+                            break;
+                        case "q":
+                            ctlInteraction.pickUp(1);
+                            break;
+                        case "d":
+                            ctlInteraction.pickUp(2);
+                            break;
+                        case "s":
+                            ctlInteraction.pickUp(3);
+                            break;
+                    }
+                }
+                else if (scInputAction.equals("attack")) {
+                    continue;
+                }
+                switch (scInputAction) {
                     case "z":
-                        ctlMouvement.movement("top");
-                        break;
-                    case "s":
-                        ctlMouvement.movement("bottom");
+                        ctlMouvement.movement(0);
                         break;
                     case "q":
-                        ctlMouvement.movement("left");
+                        ctlMouvement.movement(1);
                         break;
                     case "d":
-                        ctlMouvement.movement("right");
+                        ctlMouvement.movement(2);
+                        break;
+                    case "s":
+                        ctlMouvement.movement(3);
                         break;
                 }
+
             }
             catch (Exception e){
                 //System.out.println(e.getMessage());
