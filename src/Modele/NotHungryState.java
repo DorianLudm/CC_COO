@@ -1,19 +1,30 @@
 package Modele;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class NotHungryState extends AnimalState{
     @Override
-    public Integer[] play(MapObject[][] map, Animal animal){
-        Integer[] res = new Integer[2];
-        res[0] = null;
-
-        System.out.println("Comportement normal d'un animal!");
-        System.out.println("Cet animal est en "+animal.posX+" "+animal.posY);
+    public void play(MapObject[][] map, Animal animal){
         animal.current_hunger--;
         if(animal.current_hunger == 0){
             animal.currentState = new HungryState();
         }
 
-        return res;
+        int x = animal.getPosX(); int y =  animal.getPosY();
+        ArrayList<EmptySpace> moveSpaces = new ArrayList<>();
+        for(MapObject obj: Map.getInstance().getSurroudings(map, x, y)){
+            if(obj instanceof EmptySpace){moveSpaces.add((EmptySpace) obj);}
+        }
+
+        Random rd = new Random();
+        int numberOfSpaces = moveSpaces.size();
+        if (numberOfSpaces > 0){
+            EmptySpace moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+            map[moveLocation.getPosX()][moveLocation.getPosY()] = animal;
+            animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
+            map[x][y] = Map.getInstance().getFactory().instanciatEmptySpace(x, y);
+        }
     }
 
     @Override

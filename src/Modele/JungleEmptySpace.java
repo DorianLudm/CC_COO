@@ -8,6 +8,7 @@ public class JungleEmptySpace extends EmptySpace{
         setBgColor("\u001B[43m");
         setFontColor("");
         setRepresentation(" ");
+        reachable = true;
     }
 
     @Override

@@ -1,50 +1,30 @@
 package Modele;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class HungryState extends AnimalState{
-    private boolean shouldEatObject(MapObject toEat, MapObject obj){
+    private boolean shouldEatObject(MapObject toEat, MapObject candidate){
+        if(candidate == null){return false;}
         if(toEat instanceof Fruit){return false;}
-        if(toEat instanceof Mushroom && obj instanceof Fruit){return true;}
-        if(obj instanceof Fruit || obj instanceof Mushroom){return true;}
+        if(toEat instanceof Mushroom && candidate instanceof Fruit){return true;}
+        if(candidate instanceof Fruit || candidate instanceof Mushroom){return true;}
         return false;
     }
 
     @Override
-    public Integer[] play(MapObject[][] map, Animal animal){
+    public void play(MapObject[][] map, Animal animal){
         int x = animal.getPosX();
         int y =  animal.getPosY();
 
-        Integer[] res = new Integer[2];
-        res[0] = null;
+        ArrayList<EmptySpace> moveSpaces = new ArrayList<>();
 
         MapObject toEat = null;
-        // Partie à refactoriser
-
-        // Créer une fonction getSurroundings protected dans Animal
-        // Elle retourne une Array<MapObject>
-        // Si il n'y as rien (hors de la map), il y a nul à la place
-        // Permet de faire un seul parcours, et utile pour les autres états
-
-        if (x > 0) {
-            MapObject obj = map[x - 1][y];
+        for(MapObject obj: Map.getInstance().getSurroudings(map, x, y)){
             boolean shouldEat = shouldEatObject(toEat, obj);
             toEat = shouldEat ? obj : toEat;
+            if(obj instanceof EmptySpace){moveSpaces.add((EmptySpace) obj);}
         }
-        if (y > 0) {
-            MapObject obj = map[x][y - 1];
-            boolean shouldEat = shouldEatObject(toEat, obj);
-            toEat = shouldEat ? obj : toEat;
-        }
-        if (x < map.length - 1) {
-            MapObject obj = map[x + 1][y];
-            boolean shouldEat = shouldEatObject(toEat, obj);
-            toEat = shouldEat ? obj : toEat;
-        }
-        if (y < map[x].length - 1) {
-            MapObject obj = map[x][y + 1];
-            boolean shouldEat = shouldEatObject(toEat, obj);
-            toEat = shouldEat ? obj : toEat;
-        }
-        // Fin de la partie a refactoriser
         if (toEat != null) {
             int foodX = toEat.getPosX(); int foodY = toEat.getPosY();
             int playerX = Player.getInstance().getPosX(); int playerY = Player.getInstance().getPosY();
@@ -54,13 +34,19 @@ public class HungryState extends AnimalState{
             animal.currentState = animal.current_friendship == animal.getMaxFriendship() ? new FriendlyState() : new NotHungryState();
             animal.current_hunger = animal.getMaxHunger();
             map[toEat.getPosX()][toEat.getPosY()] = animal;
+            animal.setCoords(toEat.getPosX(), toEat.getPosY());
             map[x][y] = Map.getInstance().getFactory().instanciatEmptySpace(x, y);
         } else {
             // Go to random emptyspace around itself
-            // Iterer sur les résultats stockés dans l'appel de getSurroundings précédemment
+            Random rd = new Random();
+            int numberOfSpaces = moveSpaces.size();
+            if (numberOfSpaces > 0){
+                EmptySpace moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+                map[moveLocation.getPosX()][moveLocation.getPosY()] = animal;
+                animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
+                map[x][y] = Map.getInstance().getFactory().instanciatEmptySpace(x, y);
+            }
         }
-
-        return res;
     }
 
     @Override

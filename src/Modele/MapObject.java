@@ -22,10 +22,7 @@ public abstract class MapObject{
     public void setFontColor(String fontColor){ this.fontColor = fontColor; }
     public void setRepresentation(String representation){ this.representation = representation; }
 
-    public Integer[] play(MapObject[][] map){
-        Integer[] res = new Integer[2];
-        res[0] = null;
-        return res;
-    }
+    public void play(MapObject[][] map){}
     public abstract void attacked(MapObject[][] map);
+    protected void setCoords(int x, int y){posX = x; posY = y;}
 }

@@ -9,3 +9,8 @@ Ajouts :
 2) Méthodes de Map(vides)
 3) Méthode main dans l'ihm pour les tests rudimentaires  
 
+Todo:
+Système d'attaque, intéraction.  
+Logs et infos en plus de la map dans le terminal (légende??).  
+Faire un main hors de l'ihm.  
+Documentation.  
