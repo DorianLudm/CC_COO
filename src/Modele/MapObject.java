@@ -8,6 +8,7 @@ public abstract class MapObject{
     protected int posX;
     protected int posY;
     protected boolean reachable = false;
+    protected boolean pickable = false;
     protected boolean hasPlayed = false;
 
     public int getPosX() { return posX; }
@@ -18,6 +19,7 @@ public abstract class MapObject{
     }
 
     public boolean isReachable(){ return reachable; }
+    public boolean isPickable(){ return pickable; }
 
     public void setBgColor(String bgColor){ this.bgColor = bgColor; }
     public void setFontColor(String fontColor){ this.fontColor = fontColor;}

@@ -8,6 +8,7 @@ public class Acorn extends Fruit{
         setBgColor("\u001B[41m");
         setFontColor("\u001B[33m");
         setRepresentation("G");
+        pickable = true;
     }
 
     @Override

@@ -104,41 +104,17 @@ public class Map{
     }
 
     /***/
-    public void movePlayer(String direction){
-        int playerPosX = player.getPosX();
-        int playerPosY = player.getPosY();
+    public void movePlayer(int indDirection){
+        int playerPosX = player.posX;
+        int playerPosY = player.posY;
 
-        switch(direction){
-            case "top":
-                if (map[playerPosY-1][playerPosX].isReachable()){
-                    map[playerPosY-1][playerPosX] = player;
-                    map[playerPosY][playerPosX] = this.factory.instanciatEmptySpace(playerPosY, playerPosX);
-                    player.moveTop();
-                }
-                break;
-            case "bottom":
-                if (map[playerPosY+1][playerPosX].isReachable()){
-                    map[playerPosY+1][playerPosX] = player;
-                    map[playerPosY][playerPosX] = this.factory.instanciatEmptySpace(playerPosY, playerPosX);
-                    player.moveBottom();
-                }
-                break;
-            case "left":
-                if (map[playerPosY][playerPosX-1].isReachable()){
-                    map[playerPosY][playerPosX-1] = player;
-                    map[playerPosY][playerPosX] = this.factory.instanciatEmptySpace(playerPosY, playerPosX);
-                    player.moveLeft();
-                }
-                break;
-            case "right":
-                if (map[playerPosY][playerPosX+1].isReachable()){
-                    map[playerPosY][playerPosX+1] = player;
-                    map[playerPosY][playerPosX] = this.factory.instanciatEmptySpace(playerPosY, playerPosX);
-                    player.moveRight();
-                }
-                break;
-            default: // test
-                System.out.println("error");
+        MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
+
+        if (voisin.isReachable()){
+            map[voisin.posY][voisin.posX] = player;
+            map[playerPosY][playerPosX] = factory.instanciatEmptySpace(playerPosX, playerPosY);
+            player.posX = voisin.posX;
+            player.posY = voisin.posY;
         }
 
         NPCturn();
@@ -154,8 +130,16 @@ public class Map{
     }
 
     /***/
-    public void playerInteract(){
-        // implementation
+    public void playerPickUp(int indDirection){
+        int playerPosX = player.getPosX();
+        int playerPosY = player.getPosY();
+
+        MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
+
+        if (voisin.isPickable()){
+            player.addItem(voisin);
+            map[voisin.posX][voisin.posY] = factory.instanciatEmptySpace(voisin.posX, voisin.posY);
+        }
 
         NPCturn();
     }

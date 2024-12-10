@@ -8,6 +8,7 @@ public class Banana extends Fruit{
         setBgColor("\u001B[40m");
         setFontColor("\u001B[33m");
         setRepresentation("B");
+        pickable = true;
     }
 
     @Override
