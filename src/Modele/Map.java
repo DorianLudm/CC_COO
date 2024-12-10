@@ -84,12 +84,16 @@ public class Map{
                             map[line-3][posy] = this.factory.instanciateTree(line-3,posy);
                             break;
                         case 'G':
-                            map[line-3][posy] = this.factory.instanciateFruit(line-3,posy);
+                            map[line-3][posy] = this.factory instanceof ForestFactory ? this.factory.instanciateFruit(line-3,posy) : this.factory.instanciateTree(line-3,posy);
                             break;
                         case 'E':
+                        case 'M':
                             map[line-3][posy] = this.factory.instanciateAnimal(line-3,posy);
                             break;
                         case 'B':
+                            map[line-3][posy] = this.factory instanceof ForestFactory ? this.factory.instanciateDecoration(line-3,posy) : this.factory.instanciateFruit(line-3,posy);
+                            break;
+                        case 'X':
                             map[line-3][posy] = this.factory.instanciateDecoration(line-3,posy);
                             break;
                         case ' ':
