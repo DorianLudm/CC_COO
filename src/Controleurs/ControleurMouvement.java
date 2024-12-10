@@ -8,12 +8,11 @@ public class ControleurMouvement {
     private Ihm ihm;
     private Map map;
 
-    public ControleurMouvement(Ihm ihm,String biome) {
+    public ControleurMouvement(Ihm ihm, Map map, String biome) {
         this.ihm = ihm;
-        this.map = Map.getInstance(30,30,biome);
+        this.map = map;
+        map.Init(30, 30, biome);
     }
-
-    public Map getMap() { return map; }
 
     // --- Movement Functions --- //
     public void movement(String direction){

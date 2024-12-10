@@ -13,6 +13,7 @@ public class Ihm{
     private Map map;
 
     public Ihm(){
+        this.map = Map.getInstance();
         Scanner sc = new Scanner(System.in);  // Scanner utilisé par l'Ihm
 
         while(true) {
@@ -41,15 +42,13 @@ public class Ihm{
                         }
                     }
                 }
-                ctlMouvement = new ControleurMouvement(this, biome);
+                ctlMouvement = new ControleurMouvement(this, this.map, biome);
                 break;
             }if(typeMapGen.equals("y")){
                 break;
             }
         }
 
-
-        map = ctlMouvement.getMap();
         String scInput = "";
         while(true){
             try {

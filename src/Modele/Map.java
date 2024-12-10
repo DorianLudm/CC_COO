@@ -7,11 +7,10 @@ public class Map{
     private MapObject[][] map;
     private Player player;
     private Factory factorytype;
-    /***/
-    public Map(){}
-    /***/
 
-    private Map(int x, int y, String biome){ // map générer.
+    private Map(){}
+
+    public void Init(int x, int y, String biome){ // map générer.
         switch(biome){
             case "forest" :
                 this.factorytype = new ForestFactory();
@@ -45,14 +44,10 @@ public class Map{
     }
     /***/
 
-    public static Map getInstance(int x, int y, String biome){
-        if(instance == null){
-            instance = new Map(x, y, biome);
-        }
-        return instance;
-    }
-
     public static Map getInstance(){
+        if(instance == null){
+            instance = new Map();
+        }
         return instance;
     }
 
