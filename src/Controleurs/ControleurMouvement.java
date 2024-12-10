@@ -8,15 +8,9 @@ public class ControleurMouvement {
     private Ihm ihm;
     private Map map;
 
-    public ControleurMouvement(Ihm ihm, Map map,int tailleX,int tailleY, String biome) {
+    public ControleurMouvement(Ihm ihm, Map map) {
         this.ihm = ihm;
         this.map = map;
-        map.Init(tailleX, tailleY, biome);
-    }
-    public ControleurMouvement(Ihm ihm, Map map,String chemin) {
-        this.ihm = ihm;
-        this.map = map;
-        map.initFromTxt(chemin);
     }
 
     // --- Movement Functions --- //

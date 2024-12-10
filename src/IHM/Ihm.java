@@ -1,5 +1,6 @@
 package IHM;
 
+import Controleurs.ControleurGestionnairePartie;
 import Controleurs  .ControleurInteraction;
 import Controleurs.ControleurMouvement;
 import Modele.Map;
@@ -12,6 +13,7 @@ public class Ihm{
 
     private ControleurMouvement ctlMouvement;
     private ControleurInteraction ctlInteraction;
+    private ControleurGestionnairePartie ctlGP;
     private Map map;
 
     public Ihm(){
@@ -56,16 +58,18 @@ public class Ihm{
                         break;
                     }
                 }
-                ctlMouvement = new ControleurMouvement(this, this.map,x,y, biome);
-                ctlInteraction = new ControleurInteraction(this, this.map);
+                ctlGP = new ControleurGestionnairePartie(this, this.map,x,y, biome);
+                //
                 break;
             }if(typeMapGen.equals("y")){
                 String chemin = "./lib/carte.txt";
-                ctlMouvement = new ControleurMouvement(this, this.map,chemin);
-                ctlInteraction = new ControleurInteraction(this, this.map);
+                ctlGP = new ControleurGestionnairePartie(this, this.map,chemin);
+                //
                 break;
             }
         }
+        ctlInteraction = new ControleurInteraction(this, this.map);
+        ctlMouvement = new ControleurMouvement(this, this.map);
 
         String scInputAction = "";
         String scInputDirection = "";
@@ -88,10 +92,10 @@ public class Ihm{
                         case "q":
                             ctlInteraction.pickUp(1);
                             break;
-                        case "d":
+                        case "s":
                             ctlInteraction.pickUp(2);
                             break;
-                        case "s":
+                        case "d":
                             ctlInteraction.pickUp(3);
                             break;
                     }
@@ -106,10 +110,10 @@ public class Ihm{
                         case "q":
                             ctlInteraction.attack(1);
                             break;
-                        case "d":
+                        case "s":
                             ctlInteraction.attack(2);
                             break;
-                        case "s":
+                        case "d":
                             ctlInteraction.attack(3);
                             break;
                     }
@@ -152,8 +156,8 @@ public class Ihm{
 
 
     /// --- Main test --- ///
-    public static void main(String[] args){
-        Ihm ihm = new Ihm();
-    }
+    // public static void main(String[] args){
+    //     Ihm ihm = new Ihm();
+    // }
 }
 

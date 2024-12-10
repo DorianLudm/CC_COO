@@ -183,7 +183,7 @@ public class Map{
 
         MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
 
-        if (voisin.isReachable()){
+        if (voisin != null && voisin.isReachable()){
 
             map[voisin.posX][voisin.posY] = player;
             map[playerPosX][playerPosY] = factory.instanciatEmptySpace(playerPosX, playerPosY);
