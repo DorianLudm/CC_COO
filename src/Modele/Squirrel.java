@@ -2,6 +2,7 @@ package Modele;
 
 public class Squirrel extends Animal{
     private static int MAX_HUNGER = 5;
+    private static int MAX_FRIENDSHIP = 1;
 
     public Squirrel(int x, int y) {
         this.posX = x;
@@ -11,7 +12,9 @@ public class Squirrel extends Animal{
         setRepresentation("E");
         this.currentState = new NotHungryState();
         this.current_hunger = MAX_HUNGER;
+        this.current_friendship = 0;
     }
 
     public int getMaxHunger(){return MAX_HUNGER;}
+    public int getMaxFriendship(){return MAX_FRIENDSHIP;}
 }

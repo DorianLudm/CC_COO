@@ -10,7 +10,7 @@ public class ControleurMouvement {
 
     public ControleurMouvement(Ihm ihm,String biome) {
         this.ihm = ihm;
-        this.map = new Map(30,30,biome);
+        this.map = Map.getInstance(30,30,biome);
     }
 
     public Map getMap() { return map; }

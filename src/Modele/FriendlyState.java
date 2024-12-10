@@ -6,7 +6,10 @@ public class FriendlyState extends AnimalState{
         Integer[] res = new Integer[2];
         res[0] = null;
 
-        System.out.println("Comportement d'un animal allié!");
+        animal.current_hunger--;
+        if(animal.current_hunger == 0){
+            animal.currentState = new HungryState();
+        }
 
         return res;
     }

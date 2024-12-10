@@ -3,7 +3,7 @@ package Modele;
 import java.util.Random;
 
 public class Map{
-
+    private static Map instance;
     private MapObject[][] map;
     private Player player;
     private Factory factorytype;
@@ -11,7 +11,7 @@ public class Map{
     public Map(){}
     /***/
 
-    public Map(int x, int y, String biome){ // map générer.
+    private Map(int x, int y, String biome){ // map générer.
         switch(biome){
             case "forest" :
                 this.factorytype = new ForestFactory();
@@ -40,10 +40,25 @@ public class Map{
                 }
             }
         }
-        player = new Player(5,5);
+        player = Player.getInstance(5,5);
         map[player.getPosX()][player.getPosY()] = player;
     }
     /***/
+
+    public static Map getInstance(int x, int y, String biome){
+        if(instance == null){
+            instance = new Map(x, y, biome);
+        }
+        return instance;
+    }
+
+    public static Map getInstance(){
+        return instance;
+    }
+
+    public Factory getFactory(){
+        return this.factorytype;
+    }
 
     private double[][] generateWave(int x, int y) {
         double[][] result = new double[x][y];
