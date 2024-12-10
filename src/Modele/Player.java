@@ -29,11 +29,6 @@ public class Player extends MapObject{
         return instance;
     }
 
-    public void moveTop(){ posY--; }
-    public void moveBottom(){ posY++; }
-    public void moveLeft(){ posX--; }
-    public void moveRight(){ posX++; }
-
     @Override
     public void attacked(MapObject[][] map){}
 

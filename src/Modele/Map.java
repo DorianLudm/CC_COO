@@ -105,14 +105,16 @@ public class Map{
 
     /***/
     public void movePlayer(int indDirection){
-        int playerPosX = player.getPosX();
-        int playerPosY = player.getPosY();
+        int playerPosX = player.posX;
+        int playerPosY = player.posY;
 
         MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
 
         if (voisin.isPickable()){
             map[voisin.posY][voisin.posX] = player;
             map[playerPosY][playerPosX] = factory.instanciatEmptySpace(playerPosX, playerPosY);
+            player.posX = voisin.posX;
+            player.posY = voisin.posY;
         }
 
         NPCturn();
