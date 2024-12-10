@@ -110,7 +110,7 @@ public class Map{
 
         MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
 
-        if (voisin.isPickable()){
+        if (voisin.isReachable()){
             map[voisin.posY][voisin.posX] = player;
             map[playerPosY][playerPosX] = factory.instanciatEmptySpace(playerPosX, playerPosY);
             player.posX = voisin.posX;
