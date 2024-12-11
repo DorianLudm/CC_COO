@@ -26,8 +26,8 @@ public abstract class MapObject{
     public void setRepresentation(String representation){ this.representation = representation; }
 
     public void play(MapObject[][] map){if(this.hasPlayed){return;} this.hasPlayed = true;}
-    public abstract void attacked(MapObject[][] map);
+    public abstract void attacked();
     protected void setCoords(int x, int y){posX = x; posY = y;}
     public boolean hasPlayed(){return this.hasPlayed;}
-    protected void resetHasPlayed(){this.hasPlayed = false;}
+    public void resetHasPlayed(){this.hasPlayed = false;}
 }

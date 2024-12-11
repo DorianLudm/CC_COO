@@ -10,5 +10,5 @@ public class SmallRock extends Decoration{
         setRepresentation("X");
     }
 
-    public void attacked(MapObject[][] map){}
+    public void attacked(){}
 }

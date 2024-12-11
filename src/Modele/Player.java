@@ -30,7 +30,7 @@ public class Player extends MapObject{
     }
 
     @Override
-    public void attacked(MapObject[][] map){}
+    public void attacked(){}
 
     public void addItem(MapObject item){
         inventory.put(item, inventory.getOrDefault(item, 0) + 1);

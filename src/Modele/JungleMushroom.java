@@ -11,5 +11,5 @@ public class JungleMushroom extends Mushroom{
     }
 
     @Override
-    public void attacked(MapObject[][] map){}
+    public void attacked(){}
 }

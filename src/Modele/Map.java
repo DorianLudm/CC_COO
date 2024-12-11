@@ -143,24 +143,6 @@ public class Map{
         }
         return result;
     }
-    /***/
-
-    public Map(int x, int y,String biome, String fichier){
-        // map[2][2] = new Acorn();
-        // map[25][4] = new ForestTree();
-        // map[3][2] = new ForestTree();
-        // map[3][4] = new ForestMushroom();
-        // map[6][6] = new Squirrel();
-        // map[0][0] = player;
-    }
-
-    /***/
-    public void loadMap(String biome){}
-
-    /***/
-    public void generateMap(String biome){
-
-    }
 
     /***/
     private void NPCturn(){
@@ -197,7 +179,7 @@ public class Map{
     /***/
     public void playerFight(int indDirection){
         MapObject voisin = getSurroudings(player.posX,player.posY)[indDirection];
-        voisin.attacked(map);
+        voisin.attacked();
 
         NPCturn();
     }

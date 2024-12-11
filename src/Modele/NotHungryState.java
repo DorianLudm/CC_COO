@@ -30,5 +30,5 @@ public class NotHungryState extends AnimalState{
     }
 
     @Override
-    public void attacked(MapObject[][] map, Animal animal){}
+    public void attacked(Animal animal){}
 }

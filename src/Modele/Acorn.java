@@ -12,5 +12,5 @@ public class Acorn extends Fruit{
     }
 
     @Override
-    public void attacked(MapObject[][] map){}
+    public void attacked(){}
 }

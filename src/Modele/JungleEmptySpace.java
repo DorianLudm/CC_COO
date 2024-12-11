@@ -12,5 +12,5 @@ public class JungleEmptySpace extends EmptySpace{
     }
 
     @Override
-    public void attacked(MapObject[][] map){}
+    public void attacked(){}
 }

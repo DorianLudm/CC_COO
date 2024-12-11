@@ -11,8 +11,8 @@ public abstract class Animal extends MapObject{
     }
 
     @Override
-    public void attacked(MapObject[][] map){
-        this.currentState.attacked(map, this);
+    public void attacked(){
+        this.currentState.attacked(this);
     }
 
     public abstract int getMaxHunger();

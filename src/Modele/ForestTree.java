@@ -11,5 +11,5 @@ public class ForestTree extends Tree{
     }
 
     @Override
-    public void attacked(MapObject[][] map){}
+    public void attacked(){}
 }
