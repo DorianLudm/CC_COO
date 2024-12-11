@@ -17,7 +17,7 @@ public class ForestFactory implements Factory{
         return new Acorn(x, y);
     }
 
-    public EmptySpace instanciatEmptySpace(int x, int y){
+    public EmptySpace instanciateEmptySpace(int x, int y){
         return new ForestEmptySpace(x, y);
     }
 

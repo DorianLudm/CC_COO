@@ -24,7 +24,7 @@ public class FriendlyState extends AnimalState{
             EmptySpace moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
             map[moveLocation.getPosX()][moveLocation.getPosY()] = animal;
             animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-            map[x][y] = Map.getInstance().getFactory().instanciatEmptySpace(x, y);
+            map[x][y] = Map.getInstance().getFactory().instanciateEmptySpace(x, y);
         }
     }
 

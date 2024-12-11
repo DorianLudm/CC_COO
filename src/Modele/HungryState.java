@@ -38,7 +38,7 @@ public class HungryState extends AnimalState{
             animal.current_hunger = animal.getMaxHunger();
             map[toEat.getPosX()][toEat.getPosY()] = animal;
             animal.setCoords(toEat.getPosX(), toEat.getPosY());
-            map[x][y] = Map.getInstance().getFactory().instanciatEmptySpace(x, y);
+            map[x][y] = Map.getInstance().getFactory().instanciateEmptySpace(x, y);
         } else {
             // Go to random emptyspace around itself
             Random rd = new Random();
@@ -47,7 +47,7 @@ public class HungryState extends AnimalState{
                 EmptySpace moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
                 map[moveLocation.getPosX()][moveLocation.getPosY()] = animal;
                 animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-                map[x][y] = Map.getInstance().getFactory().instanciatEmptySpace(x, y);
+                map[x][y] = Map.getInstance().getFactory().instanciateEmptySpace(x, y);
             }
         }
     }

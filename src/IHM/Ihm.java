@@ -49,13 +49,22 @@ public class Ihm{
             }
             while(true){
                 System.out.println("Quelle dimension de carte : longueur largeur");
-                if(sc.hasNextInt()) {
+                if (sc.hasNextInt()) {
                     x = sc.nextInt();
-                }if(sc.hasNextInt()) {
-                    y = sc.nextInt();
-                }
-                if(x > 0&& y > 0 ){
-                    break;
+                    if (sc.hasNextInt()) {
+                        y = sc.nextInt();
+                        if (x > 0 && y > 0) {
+                            break;
+                        } else {
+                            System.out.println("Les dimensions doivent être des entiers positifs.");
+                        }
+                    } else {
+                        System.out.println("Veuillez entrer deux entiers.");
+                        sc.next(); // Utile pour que le scanner ne prenne pas le print en entrée
+                    }
+                } else {
+                    System.out.println("Veuillez entrer deux entiers.");
+                    sc.next();
                 }
             }
             this.ctlGP = new ControleurGestionnairePartie(this, this.map,x,y, biome);
@@ -69,77 +78,41 @@ public class Ihm{
     }
 
     /**/
-    public void maj(String map){
+    public void maj(String map) {
         try {
             String scInputAction = "";
-            String scInputDirection = "";
             System.out.println(map);
             System.out.println("Choisisez une action à effectuer :\n-" +
                     " 'pick' pour ramasser un objet\n" +
                     "- 'attack' pour attaquer un animal\n" +
-                    "- 'drop pour lancer un item ou un animal\n" +
+                    "- 'drop' pour lancer un item ou un animal\n" +
+                    "- 'quit' pour arrêter la partie\n" +
                     "- (z,q,s,d) pour vous déplacer");
-            if (sc.hasNext()){
-                scInputAction = sc.next();
-            }
-
-            if (scInputAction.equals("pick")){
-                System.out.println("Dans quelle direction voulez-vous ramasser un objet ? (z,q,s,d)");
-                scInputDirection = sc.next();
-                switch (scInputDirection) {
-                    case "z":
-                        ctlInteraction.pickUp(0);
-                        break;
-                    case "q":
-                        ctlInteraction.pickUp(1);
-                        break;
-                    case "s":
-                        ctlInteraction.pickUp(2);
-                        break;
-                    case "d":
-                        ctlInteraction.pickUp(3);
-                        break;
+    
+            // Vérifier l'entrée pour l'action
+            while (true) {
+                if (sc.hasNext()) {
+                    scInputAction = sc.next();
+                    break;
+                } else {
+                    System.out.println("Entrée invalide. Veuillez choisir une action :");
+                    sc.next(); // Vider le tampon du scanner pour éviter une boucle infinie
                 }
             }
-            else if (scInputAction.equals("attack")) {
-                System.out.println("Dans quelle direction voulez-vous attaquer? (z,q,s,d)");
-                scInputDirection = sc.next();
-                switch (scInputDirection) {
-                    case "z":
-                        ctlInteraction.attack(0);
-                        break;
-                    case "q":
-                        ctlInteraction.attack(1);
-                        break;
-                    case "s":
-                        ctlInteraction.attack(2);
-                        break;
-                    case "d":
-                        ctlInteraction.attack(3);
-                        break;
-                }
-            }
-            else if (scInputAction.equals("drop")) {
-                System.out.println("Quel item voulez-vous lancer ?");
-                String scInputItem = sc.next();
-                System.out.println("Dans quelle direction voulez-vous lancer un item ? (z,q,s,d)");
-                scInputDirection = sc.next();
-                switch (scInputDirection) {
-                    case "z":
-                        ctlInteraction.drop(0, scInputItem);
-                        break;
-                    case "q":
-                        ctlInteraction.drop(1, scInputItem);
-                        break;
-                    case "s":
-                        ctlInteraction.drop(2, scInputItem);
-                        break;
-                    case "d":
-                        ctlInteraction.drop(3, scInputItem);
-                        break;
-                }
-            }
+    
             switch (scInputAction) {
+                case "pick":
+                    handlePickAction();
+                    break;
+                case "attack":
+                    handleAttackAction();
+                    break;
+                case "drop":
+                    handleDropAction();
+                    break;
+                case "quit":
+                    ctlGP.stopGame();
+                    break;
                 case "z":
                     ctlMouvement.movement(0);
                     break;
@@ -153,17 +126,98 @@ public class Ihm{
                     ctlMouvement.movement(3);
                     break;
                 default:
-                    ctlGP.startGame();
+                    System.out.println("Action invalide. Veuillez choisir une action valide.");
+                    maj(map);
                     break;
             }
-        }
-        catch (Exception e){
-            //System.out.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    public void closeGame(){
+    
+    private void handlePickAction() {
+        System.out.println("Dans quelle direction voulez-vous ramasser un objet ? (z,q,s,d)");
+        String scInputDirection = getValidDirection();
+        if (scInputDirection == null) return;
+    
+        switch (scInputDirection) {
+            case "z":
+                ctlInteraction.pickUp(0);
+                break;
+            case "q":
+                ctlInteraction.pickUp(1);
+                break;
+            case "s":
+                ctlInteraction.pickUp(2);
+                break;
+            case "d":
+                ctlInteraction.pickUp(3);
+                break;
+        }
+    }
+    
+    private void handleAttackAction() {
+        System.out.println("Dans quelle direction voulez-vous attaquer? (z,q,s,d)");
+        String scInputDirection = getValidDirection();
+        if (scInputDirection == null) return;
+    
+        switch (scInputDirection) {
+            case "z":
+                ctlInteraction.attack(0);
+                break;
+            case "q":
+                ctlInteraction.attack(1);
+                break;
+            case "s":
+                ctlInteraction.attack(2);
+                break;
+            case "d":
+                ctlInteraction.attack(3);
+                break;
+        }
+    }
+    
+    private void handleDropAction() {
+        System.out.println("Quel item voulez-vous lancer ?");
+        String scInputItem = sc.next();
+        System.out.println("Dans quelle direction voulez-vous lancer un item ? (z,q,s,d)");
+        String scInputDirection = getValidDirection();
+        if (scInputDirection == null) return;
+    
+        switch (scInputDirection) {
+            case "z":
+                ctlInteraction.drop(0, scInputItem);
+                break;
+            case "q":
+                ctlInteraction.drop(1, scInputItem);
+                break;
+            case "s":
+                ctlInteraction.drop(2, scInputItem);
+                break;
+            case "d":
+                ctlInteraction.drop(3, scInputItem);
+                break;
+        }
+    }
+    
+    private String getValidDirection() {
+        while (true) {
+            if (sc.hasNext()) {
+                String direction = sc.next();
+                if (direction.matches("[zqsd]")) {
+                    return direction;
+                } else {
+                    System.out.println("Direction invalide. Veuillez entrer (z,q,s,d) :");
+                }
+            } else {
+                System.out.println("Entrée invalide. Veuillez entrer (z,q,s,d) :");
+                sc.next(); // Vider le tampon du scanner pour éviter une boucle infinie
+            }
+        }
+    }
+    
+    public void closeGame() {
+        System.out.println("Merci d'avoir joué!");
         this.sc.close();
     }
 }

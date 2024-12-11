@@ -23,4 +23,8 @@ public class ControleurGestionnairePartie {
     public void startGame(){
         ihm.maj(map.toString());
     }
+
+    public void stopGame(){
+        ihm.closeGame();
+    }
 }

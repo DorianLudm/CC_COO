@@ -17,7 +17,7 @@ public class JungleFactory implements Factory{
         return new Banana(x, y);
     }
 
-    public EmptySpace instanciatEmptySpace(int x, int y){
+    public EmptySpace instanciateEmptySpace(int x, int y){
         return new JungleEmptySpace(x, y);
     }
 

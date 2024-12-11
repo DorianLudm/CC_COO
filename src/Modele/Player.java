@@ -39,7 +39,7 @@ public class Player extends MapObject{
     }
 
     public String removeItem(String item){
-        System.out.println(item);
+        if(inventory.get(item) == null){return null;}
 
         if (inventory.get(item) > 1) {
             inventory.put(item, inventory.get(item) - 1);

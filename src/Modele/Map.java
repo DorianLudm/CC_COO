@@ -32,7 +32,7 @@ public class Map{
                 }else if(repartition[i][j]>0.71) {
                     map[i][j] = factory.instanciateFruit(i, j);
                 }else if(repartition[i][j] > 0.58){
-                    map[i][j] = factory.instanciatEmptySpace(i, j);
+                    map[i][j] = factory.instanciateEmptySpace(i, j);
                 }else if(repartition[i][j] < 0.56){
                     map[i][j] = factory.instanciateTree(i, j);
                 }
@@ -70,7 +70,7 @@ public class Map{
                     System.out.println("x" + x + "y" + y);
                     for(int j = 0; j < x; j++){
                         for(int k = 0; k < y; k++){
-                            map[j][k] = factory.instanciatEmptySpace(j, k);
+                            map[j][k] = factory.instanciateEmptySpace(j, k);
                         }
                     }
                 }if(c == 10){
@@ -97,7 +97,7 @@ public class Map{
                             map[line-3][posy] = this.factory.instanciateDecoration(line-3,posy);
                             break;
                         case ' ':
-                            map[line-3][posy] = this.factory.instanciatEmptySpace(line-3,posy);
+                            map[line-3][posy] = this.factory.instanciateEmptySpace(line-3,posy);
                             break;
                         case 'C':
                             map[line-3][posy] = this.factory.instanciateMushroom(line-3,posy);
@@ -168,7 +168,7 @@ public class Map{
         if (voisin != null && voisin.isReachable()){
 
             map[voisin.posX][voisin.posY] = player;
-            map[playerPosX][playerPosY] = factory.instanciatEmptySpace(playerPosX, playerPosY);
+            map[playerPosX][playerPosY] = factory.instanciateEmptySpace(playerPosX, playerPosY);
             player.posX = voisin.posX;
             player.posY = voisin.posY;
         }
@@ -193,7 +193,7 @@ public class Map{
 
         if (voisin.isPickable()){
             player.addItem(voisin);
-            map[voisin.posX][voisin.posY] = factory.instanciatEmptySpace(voisin.posX, voisin.posY);
+            map[voisin.posX][voisin.posY] = factory.instanciateEmptySpace(voisin.posX, voisin.posY);
         }
         NPCturn();
     }
