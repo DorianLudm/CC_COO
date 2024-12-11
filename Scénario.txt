@@ -1,0 +1,75 @@
+UC Jouer.
+Scénario nominal 
+Périmètre : Jeu 										/!\  Un nom ??
+Niveau : But utilisateur
+Acteur principal : Joueurs
+Pré-conditions : aucune
+Post-consitions : .												???
+
+
+1) Le système demande au joueur si il souhaite chargé une carte.
+2) L'utilisatuer choisis de ne pas charger de carte.
+3) Le système demande le biome désiré.
+4) Le joueur saisi un nom de biome valide.
+5) Le programme demande la taille de la carte.
+6) Le joueur saisit les dimensions de la carte désiré.
+7) Le système crée la carte correspondant aux informations rentrés.
+8) Le système affiche l'état de la partie.
+9) Le système demande au joueur l'action qu'il souhaite effectuer.
+10) Le joueur décide de quitter la partie.
+11) Le systeme affiche un message, le jeu est terminé.
+
+
+
+
+Scénario alternatifs :
+
+2) a) le joueur choisis de charger une carté déja existante.
+	1. Le système charge le fichier contenu dans lib/carte.txt et construit la map correspondante.
+	2. Retour au point 8 du scénario nominal.
+   b) le joueur rentre une réponse invalide.
+   	1. Retour au point 1 du scénario nominal.
+
+4) a) Le système détecte que le joueur n'a pas entré un nom de biome valide.
+	2. Retour au point 3 du scénario nominal.
+
+7) a) Le systeme détecte que le joueur n'a pas entré des dimensions valide.
+	1. Retour au point 5 du scénario nominal.
+
+10)a) Le joueur décide de se déplacer vers une case valide.
+	1. Le système déplace le joueur sur la case souhaité et fait jouer toute les entitées.
+	2. Retour au point 9 du scénario nominal.
+
+   b) Le joueur décide de se déplacer vers une case invalide.
+   	1. Le systeme n'effectue pas l'action et demande à nouveau ce que souhaite faire le joueur.
+	2. Retour au point 9 du scénario nominal.
+
+   c) Le joueur décide de ramasser un objet valide.
+   	1. Le systeme retire l'élément de la carte et l'ajoute à l'inventaire du joueur.
+	2. Retour au point 9 du scénario nominal.
+ 
+   d) Le joueur décide de ramasser un objet invalide.
+   	1. Le systeme n'effectue pas l'action et demande à nouveau ce que souhaite faire le joueur.
+	2. Retour au point 9 du scénario nominal.
+
+   f) Le joueur décide de jeter un objet.
+   	1. Le systeme demande quel objet doit être lancé.
+   	2. Le joueur choisis l'objet qu'il souhaite lancer.
+   		2.2.1 Le joueur choisis un objet qu'il n'a pas. 														???????????????????????????????????????????
+   		2.2.2 Le systeme n'effectue pas l'action.
+   		2.2.3 Retour au point 9 du scénario nominal.
+   	3. Le systeme demande la direction vers laquelle jeter l'objet.
+   	4. Le joueur choisis une direction valide.
+   		4.2.1 Le joueur choisis une direction invalide.
+   		4.2.2 Le systeme n'effectue pas l'action.
+   		4.2.3 Retour au point 9 du scénario nominal.
+
+   	5. Le systeme supprime l'objet de l'inventaire et l'ajoute sur la carte a la position désiré. 
+
+   g) Le joueur décide d'attaquer.
+   	1. Le systeme demande la direction de l'attaque au joueur.
+   	2. Le joueur rentre une direction valide.
+   		2.2.1 Le joueur choisis une direction invalide.
+   		2.2.2 Retour au point 10)g)2 du scénario nominal. 
+   	3. Le systeme effectue le coup dans la direction désiré.
+   	4. Retour au point 9 du scénario nominal.
