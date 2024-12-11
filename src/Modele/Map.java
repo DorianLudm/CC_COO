@@ -216,6 +216,23 @@ public class Map{
         NPCturn();
     }
 
+    public void playerDrop(int indDirection, String item){
+        MapObject voisin = getSurroudings(player.posX,player.posY)[indDirection];
+
+        if (voisin != null && voisin.isReachable()){
+            if (player.removeItem(item) != null)
+                if (item.equals("Banana") || item.equals("Acorn"))
+                    map[voisin.posX][voisin.posY] = factory.instanciateFruit(voisin.posX, voisin.posY);
+                else if (item.equals("Squirrel") || item.equals("Monkey")) {
+                    map[voisin.posX][voisin.posY] = factory.instanciateAnimal(voisin.posX, voisin.posY);
+                } else if (item.equals("ForestMushroom") || item.equals("JungleMushroom")) {
+                    map[voisin.posX][voisin.posY] = factory.instanciateMushroom(voisin.posX, voisin.posY);
+                }
+        }
+
+        NPCturn();
+    }
+
     public MapObject[] getSurroudings(int x, int y){
         MapObject[] res = new MapObject[4];
         res[0] = (x > 0) ? map[x - 1][y] : null;
@@ -248,6 +265,7 @@ public class Map{
             }
             s += "\n";
         }
+        s += player.toString();
         return s;
     }
 }

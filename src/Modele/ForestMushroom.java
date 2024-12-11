@@ -8,6 +8,7 @@ public class ForestMushroom extends Mushroom{
         setBgColor("\u001B[47m");
         setFontColor("\u001B[35m");
         setRepresentation("C");
+        pickable = true;
     }
 
     @Override
