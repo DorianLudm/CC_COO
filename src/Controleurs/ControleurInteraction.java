@@ -23,4 +23,9 @@ public class ControleurInteraction {
         ihm.maj(map.toString());
     }
 
+    public void drop(int indDirection, String item){
+        map.playerDrop(indDirection, item);
+        ihm.maj(map.toString());
+    }
+
 }

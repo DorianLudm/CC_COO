@@ -74,7 +74,11 @@ public class Ihm{
             String scInputAction = "";
             String scInputDirection = "";
             System.out.println(map);
-            System.out.println("Choisisez une action à effectuer :\n- 'pick' pour ramasser un objet\n- 'attack' pour attaquer un animal\n- (z,q,s,d) pour vous déplacer");
+            System.out.println("Choisisez une action à effectuer :\n-" +
+                    " 'pick' pour ramasser un objet\n" +
+                    "- 'attack' pour attaquer un animal\n" +
+                    "- 'drop pour lancer un item ou un animal\n" +
+                    "- (z,q,s,d) pour vous déplacer");
             if (sc.hasNext()){
                 scInputAction = sc.next();
             }
@@ -115,6 +119,26 @@ public class Ihm{
                         break;
                 }
             }
+            else if (scInputAction.equals("drop")) {
+                System.out.println("Quel item voulez-vous lancer ?");
+                String scInputItem = sc.next();
+                System.out.println("Dans quelle direction voulez-vous lancer un item ? (z,q,s,d)");
+                scInputDirection = sc.next();
+                switch (scInputDirection) {
+                    case "z":
+                        ctlInteraction.drop(0, scInputItem);
+                        break;
+                    case "q":
+                        ctlInteraction.drop(1, scInputItem);
+                        break;
+                    case "s":
+                        ctlInteraction.drop(2, scInputItem);
+                        break;
+                    case "d":
+                        ctlInteraction.drop(3, scInputItem);
+                        break;
+                }
+            }
             switch (scInputAction) {
                 case "z":
                     ctlMouvement.movement(0);
@@ -128,8 +152,10 @@ public class Ihm{
                 case "d":
                     ctlMouvement.movement(3);
                     break;
+                default:
+                    ctlGP.startGame();
+                    break;
             }
-
         }
         catch (Exception e){
             //System.out.println(e.getMessage());
