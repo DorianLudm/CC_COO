@@ -30,7 +30,7 @@ public class HungryState extends AnimalState{
                 if(obj != null && obj.isReachable()){moveSpaces.add(tile);}
             }
         }
-        if (toEat != null) {
+        if (toEat != null){
             int foodX = toEat.getPosX(); int foodY = toEat.getPosY();
             // Check if the player is around the food the animal is going to eat and set the according state
             MapTile[] foodSurroundings = Map.getInstance().getSurroudings(foodX, foodY);
@@ -40,6 +40,7 @@ public class HungryState extends AnimalState{
             animal.setEtat(animal.current_friendship == animal.getMaxFriendship() ? new FriendlyState() : new NotHungryState());
             animal.current_hunger = animal.getMaxHunger();
             map[toEat.getPosX()][toEat.getPosY()].setForeground(animal);
+            map[toEat.getPosX()][toEat.getPosY()].setBackground(Map.getInstance().getFactory().instanciateEmptySpace(toEat.getPosX(), toEat.getPosY()));
             animal.setCoords(toEat.getPosX(), toEat.getPosY());
             map[x][y].setForeground(null);
         } else {
