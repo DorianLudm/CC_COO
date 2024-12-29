@@ -25,7 +25,7 @@ public abstract class MapObject{
     public void setFontColor(String fontColor){ this.fontColor = fontColor;}
     public void setRepresentation(String representation){ this.representation = representation; }
 
-    public void play(MapObject[][] map){if(this.hasPlayed){return;} this.hasPlayed = true;}
+    public void play(MapTile[][] map){if(this.hasPlayed){return;} this.hasPlayed = true;}
     public abstract void attacked();
     protected void setCoords(int x, int y){posX = x; posY = y;}
     public boolean hasPlayed(){return this.hasPlayed;}

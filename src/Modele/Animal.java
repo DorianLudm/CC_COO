@@ -6,7 +6,7 @@ public abstract class Animal extends MapObject{
     private AnimalState currentState;
 
     @Override
-    public void play(MapObject[][] map){
+    public void play(MapTile[][] map){
         this.currentState.play(map, this);
     }
 

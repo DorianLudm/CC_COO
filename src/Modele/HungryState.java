@@ -13,41 +13,44 @@ public class HungryState extends AnimalState{
     }
 
     @Override
-    public void play(MapObject[][] map, Animal animal){
+    public void play(MapTile[][] map, Animal animal){
         if (animal.hasPlayed){return;}
         animal.hasPlayed = true;
         int x = animal.getPosX();
         int y =  animal.getPosY();
 
-        ArrayList<EmptySpace> moveSpaces = new ArrayList<>();
+        ArrayList<MapTile> moveSpaces = new ArrayList<>();
 
         MapObject toEat = null;
-        for(MapObject obj: Map.getInstance().getSurroudings(x, y)){
-            boolean shouldEat = shouldEatObject(toEat, obj);
-            toEat = shouldEat ? obj : toEat;
-            if(obj instanceof EmptySpace){moveSpaces.add((EmptySpace) obj);}
+        for(MapTile tile: Map.getInstance().getSurroudings(x, y)){
+            if (tile != null){
+                MapObject obj = tile.getBackground();
+                boolean shouldEat = shouldEatObject(toEat, obj);
+                toEat = shouldEat ? obj : toEat;
+                if(obj != null && obj.isReachable()){moveSpaces.add(tile);}
+            }
         }
         if (toEat != null) {
             int foodX = toEat.getPosX(); int foodY = toEat.getPosY();
             // Check if the player is around the food the animal is going to eat and set the according state
-            MapObject[] foodSurroundings = Map.getInstance().getSurroudings(foodX, foodY);
+            MapTile[] foodSurroundings = Map.getInstance().getSurroudings(foodX, foodY);
             boolean befriend = false;
-            for(MapObject obj: foodSurroundings){if(obj instanceof Player){befriend = true;}}
+            for(MapTile obj: foodSurroundings){if(obj != null && obj.getForeground() instanceof Player){befriend = true;}}
             animal.current_friendship = befriend ? animal.current_friendship+1 : 0;
             animal.setEtat(animal.current_friendship == animal.getMaxFriendship() ? new FriendlyState() : new NotHungryState());
             animal.current_hunger = animal.getMaxHunger();
-            map[toEat.getPosX()][toEat.getPosY()] = animal;
+            map[toEat.getPosX()][toEat.getPosY()].setForeground(animal);
             animal.setCoords(toEat.getPosX(), toEat.getPosY());
-            map[x][y] = Map.getInstance().getFactory().instanciateEmptySpace(x, y);
+            map[x][y].setForeground(null);
         } else {
             // Go to random emptyspace around itself
             Random rd = new Random();
             int numberOfSpaces = moveSpaces.size();
             if (numberOfSpaces > 0){
-                EmptySpace moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
-                map[moveLocation.getPosX()][moveLocation.getPosY()] = animal;
+                MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+                moveLocation.setForeground(animal);
                 animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-                map[x][y] = Map.getInstance().getFactory().instanciateEmptySpace(x, y);
+                map[x][y].setForeground(null);
             }
         }
     }

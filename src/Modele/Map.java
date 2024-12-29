@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Map{
     private static Map instance;
-    private MapObject[][] map;
+    private MapTile[][] map;
     private Player player;
     private Factory factory;
 
@@ -22,27 +22,28 @@ public class Map{
                 break;
         }
         double[][] repartition = generateWave(x,y);
-        map = new MapObject[x][y];
+        map = new MapTile[x][y];
         for(int i = 0; i < x; i++){
             for(int j = 0; j < y; j++){
                 if(repartition[i][j] > 0.75){
-                    map[i][j] = factory.instanciateDecoration(i, j);
+                    map[i][j] = new MapTile(factory.instanciateDecoration(i, j));
                 }else if(repartition[i][j] > 0.73){
-                    map[i][j] = factory.instanciateAnimal(i, j);
+                    map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j), factory.instanciateAnimal(i, j));
                 }else if(repartition[i][j]>0.71) {
-                    map[i][j] = factory.instanciateFruit(i, j);
+                    map[i][j] = new MapTile(factory.instanciateFruit(i, j));
                 }else if(repartition[i][j] > 0.58){
-                    map[i][j] = factory.instanciateEmptySpace(i, j);
+                    map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j));
                 }else if(repartition[i][j] < 0.56){
-                    map[i][j] = factory.instanciateTree(i, j);
+                    map[i][j] = new MapTile(factory.instanciateTree(i, j));
                 }
                 else {
-                    map[i][j] = factory.instanciateMushroom(i, j);
+                    map[i][j] = new MapTile(factory.instanciateMushroom(i, j));
                 }
             }
         }
         player = Player.getInstance(x/2,y/2);
-        map[player.getPosX()][player.getPosY()] = player;
+        map[player.getPosX()][player.getPosY()].setBackground(factory.instanciateEmptySpace(player.getPosX(), player.getPosY()));
+        map[player.getPosX()][player.getPosY()].setForeground(player);
     }
 
     public void initFromTxt(String path){
@@ -66,11 +67,11 @@ public class Map{
                     y = y * 10 + caractere - '0';
                 }
                 if(c==10 && line == 2){
-                    map = new MapObject[x][y];
+                    map = new MapTile[x][y];
                     System.out.println("x" + x + "y" + y);
                     for(int j = 0; j < x; j++){
                         for(int k = 0; k < y; k++){
-                            map[j][k] = factory.instanciateEmptySpace(j, k);
+                            map[j][k].setBackground(factory.instanciateEmptySpace(j, k));
                         }
                     }
                 }if(c == 10){
@@ -81,31 +82,41 @@ public class Map{
                 }else{
                     switch(c){
                         case 'A':
-                            map[line-3][posy] = this.factory.instanciateTree(line-3,posy);
+                            map[line-3][posy].setBackground(this.factory.instanciateTree(line-3,posy));
                             break;
                         case 'G':
-                            map[line-3][posy] = this.factory instanceof ForestFactory ? this.factory.instanciateFruit(line-3,posy) : this.factory.instanciateTree(line-3,posy);
+                            if(this.factory instanceof ForestFactory){
+                                map[line-3][posy].setBackground(this.factory.instanciateFruit(line-3,posy));
+                            }
+                            else{
+                                map[line-3][posy].setBackground(this.factory.instanciateTree(line-3,posy));
+                            }
                             break;
                         case 'E':
                         case 'M':
-                            map[line-3][posy] = this.factory.instanciateAnimal(line-3,posy);
+                            map[line-3][posy].setForeground(this.factory.instanciateAnimal(line-3,posy));
                             break;
                         case 'B':
-                            map[line-3][posy] = this.factory instanceof ForestFactory ? this.factory.instanciateDecoration(line-3,posy) : this.factory.instanciateFruit(line-3,posy);
+                            if(this.factory instanceof ForestFactory){
+                                map[line-3][posy].setBackground(this.factory.instanciateDecoration(line-3,posy));
+                            }
+                            else{
+                                map[line-3][posy].setBackground(this.factory.instanciateFruit(line-3,posy));
+                            }
                             break;
                         case 'X':
-                            map[line-3][posy] = this.factory.instanciateDecoration(line-3,posy);
+                            map[line-3][posy].setBackground(this.factory.instanciateDecoration(line-3,posy));
                             break;
                         case ' ':
-                            map[line-3][posy] = this.factory.instanciateEmptySpace(line-3,posy);
+                            map[line-3][posy].setBackground(this.factory.instanciateEmptySpace(line-3,posy));
                             break;
                         case 'C':
-                            map[line-3][posy] = this.factory.instanciateMushroom(line-3,posy);
+                            map[line-3][posy].setBackground(this.factory.instanciateMushroom(line-3,posy));
                             break;
                         case '@':
                             System.out.println(line-3 + " " + posy);
                             player=Player.getInstance(line-3,posy);
-                            map[player.getPosX()][player.getPosY()] = player;
+                            map[player.getPosX()][player.getPosY()].setForeground(player);
                             break;
                     }
                 }
@@ -146,13 +157,13 @@ public class Map{
 
     /***/
     private void NPCturn(){
-        for(MapObject[] obj1: this.map){
-            for(MapObject obj2: obj1){
+        for(MapTile[] obj1: this.map){
+            for(MapTile obj2: obj1){
                 obj2.play(map);
             }
         }
-        for(MapObject[] obj1: this.map){
-            for(MapObject obj2: obj1){
+        for(MapTile[] obj1: this.map){
+            for(MapTile obj2: obj1){
                 obj2.resetHasPlayed();
             }
         }
@@ -163,14 +174,15 @@ public class Map{
         int playerPosX = player.posX; // lignes
         int playerPosY = player.posY; // colonnes
 
-        MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
+        MapTile voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
 
         if (voisin != null && voisin.isReachable()){
 
-            map[voisin.posX][voisin.posY] = player;
-            map[playerPosX][playerPosY] = factory.instanciateEmptySpace(playerPosX, playerPosY);
-            player.posX = voisin.posX;
-            player.posY = voisin.posY;
+            map[voisin.getPosX()][voisin.getPosY()].setForeground(player);
+            map[playerPosX][playerPosY].setForeground(null);
+            /* map[playerPosX][playerPosY] factory.instanciateEmptySpace(playerPosX, playerPosY); */
+            player.posX = voisin.getPosX();
+            player.posY = voisin.getPosY();
         }
 
         NPCturn();
@@ -178,9 +190,9 @@ public class Map{
 
     /***/
     public void playerFight(int indDirection){
-        MapObject voisin = getSurroudings(player.posX,player.posY)[indDirection];
-        voisin.attacked();
-
+        MapTile voisin = getSurroudings(player.posX,player.posY)[indDirection];
+        voisin.getBackground().attacked();
+        voisin.getForeground().attacked();
         NPCturn();
     }
 
@@ -189,34 +201,34 @@ public class Map{
         int playerPosX = player.getPosX();
         int playerPosY = player.getPosY();
 
-        MapObject voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
+        MapTile voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
 
         if (voisin.isPickable()){
-            player.addItem(voisin);
-            map[voisin.posX][voisin.posY] = factory.instanciateEmptySpace(voisin.posX, voisin.posY);
+            player.addItem(voisin.getBackground());
+            map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateEmptySpace(voisin.getPosX(), voisin.getPosY()));
         }
         NPCturn();
     }
 
     public void playerDrop(int indDirection, String item){
-        MapObject voisin = getSurroudings(player.posX,player.posY)[indDirection];
+        MapTile voisin = getSurroudings(player.posX,player.posY)[indDirection];
 
         if (voisin != null && voisin.isReachable()){
             if (player.removeItem(item) != null)
                 if (item.equals("Banana") || item.equals("Acorn"))
-                    map[voisin.posX][voisin.posY] = factory.instanciateFruit(voisin.posX, voisin.posY);
+                    map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateFruit(voisin.getPosX(), voisin.getPosY()));
                 else if (item.equals("Squirrel") || item.equals("Monkey")) {
-                    map[voisin.posX][voisin.posY] = factory.instanciateAnimal(voisin.posX, voisin.posY);
+                    map[voisin.getPosX()][voisin.getPosY()].setForeground(factory.instanciateAnimal(voisin.getPosX(), voisin.getPosY()));
                 } else if (item.equals("ForestMushroom") || item.equals("JungleMushroom")) {
-                    map[voisin.posX][voisin.posY] = factory.instanciateMushroom(voisin.posX, voisin.posY);
+                    map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateMushroom(voisin.getPosX(), voisin.getPosY()));
                 }
         }
 
         NPCturn();
     }
 
-    public MapObject[] getSurroudings(int x, int y){
-        MapObject[] res = new MapObject[4];
+    public MapTile[] getSurroudings(int x, int y){
+        MapTile[] res = new MapTile[4];
         res[0] = (x > 0) ? map[x - 1][y] : null;
         res[1] = (y > 0) ? map[x][y - 1] : null;
         res[2] = (x < map.length - 1) ? map[x + 1][y] : null;

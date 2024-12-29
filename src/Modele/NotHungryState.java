@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class NotHungryState extends AnimalState{
     @Override
-    public void play(MapObject[][] map, Animal animal){
+    public void play(MapTile[][] map, Animal animal){
         if (animal.hasPlayed){return;}
         animal.hasPlayed = true;
         animal.current_hunger--;
@@ -14,18 +14,18 @@ public class NotHungryState extends AnimalState{
         }
 
         int x = animal.getPosX(); int y =  animal.getPosY();
-        ArrayList<EmptySpace> moveSpaces = new ArrayList<>();
-        for(MapObject obj: Map.getInstance().getSurroudings(x, y)){
-            if(obj instanceof EmptySpace){moveSpaces.add((EmptySpace) obj);}
+        ArrayList<MapTile> moveSpaces = new ArrayList<>();
+        for(MapTile obj: Map.getInstance().getSurroudings(x, y)){
+            if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
         }
 
         Random rd = new Random();
         int numberOfSpaces = moveSpaces.size();
         if (numberOfSpaces > 0){
-            EmptySpace moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
-            map[moveLocation.getPosX()][moveLocation.getPosY()] = animal;
+            MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+            moveLocation.setForeground(animal);
             animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-            map[x][y] = Map.getInstance().getFactory().instanciateEmptySpace(x, y);
+            map[x][y].setForeground(null);
         }
     }
 
