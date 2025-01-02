@@ -71,9 +71,8 @@ public class Map{
                     System.out.println("x" + x + "y" + y);
                     for(int j = 0; j < x; j++){
                         for(int k = 0; k < y; k++){
-                            System.out.println("j" + j + "k" + k);
+                            // System.out.println("j" + j + "k" + k);
                             map[j][k] = new MapTile(factory.instanciateEmptySpace(j, k));
-
                         }
                     }
                 }if(c == 10){

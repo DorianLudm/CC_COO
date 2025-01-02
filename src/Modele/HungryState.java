@@ -27,7 +27,7 @@ public class HungryState extends AnimalState{
                 MapObject obj = tile.getBackground();
                 boolean shouldEat = shouldEatObject(toEat, obj);
                 toEat = shouldEat ? obj : toEat;
-                if(obj != null && obj.isReachable()){moveSpaces.add(tile);}
+                if(obj != null && tile.isReachable()){moveSpaces.add(tile);}
             }
         }
         if (toEat != null){
