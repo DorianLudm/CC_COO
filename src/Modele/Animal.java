@@ -3,6 +3,7 @@ package Modele;
 public abstract class Animal extends MapObject{
     protected int current_hunger;
     protected int current_friendship;
+    protected int junkieMoveRange;
     private AnimalState currentState;
 
     @Override
@@ -20,12 +21,19 @@ public abstract class Animal extends MapObject{
 
     public void setEtat(AnimalState newState){
         this.currentState = newState;
-        if (newState instanceof HungryState) {
+        if (newState instanceof HungryState){
             this.setFontColor("\u001B[30m");
-        } else if (newState instanceof NotHungryState) {
+        } else if (newState instanceof NotHungryState){
             this.setFontColor("\u001B[34m");
-        } else if (newState instanceof FriendlyState) {
+        } else if (newState instanceof FriendlyState){
             this.setFontColor("\u001B[35m");
+        } else if (newState instanceof AteWeirdShroomState){
+            System.out.println("Passage en mode junkie!");
+            this.setFontColor("\u001B[31m");
         }
+    }
+
+    public int getJunkieMoveRange(){
+        return this.junkieMoveRange;
     }
 }

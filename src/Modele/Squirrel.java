@@ -7,6 +7,7 @@ public class Squirrel extends Animal{
     public Squirrel(int x, int y) {
         this.posX = x;
         this.posY = y;
+        this.junkieMoveRange = 2;
         setBgColor("\u001B[43m");
         setFontColor("\u001B[30m");
         setRepresentation("E");

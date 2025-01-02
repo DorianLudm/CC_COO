@@ -37,7 +37,17 @@ public class HungryState extends AnimalState{
             boolean befriend = false;
             for(MapTile obj: foodSurroundings){if(obj != null && obj.getForeground() instanceof Player){befriend = true;}}
             animal.current_friendship = befriend ? animal.current_friendship+1 : 0;
-            animal.setEtat(animal.current_friendship == animal.getMaxFriendship() ? new FriendlyState() : new NotHungryState());
+            boolean junkie = false;
+            if(toEat instanceof Mushroom){
+                Mushroom mushroom = (Mushroom) toEat;
+                if(mushroom.isWeirdMushroom()){
+                    animal.setEtat(new AteWeirdShroomState());
+                    junkie = true;
+                }
+            }
+            if(!junkie){
+                animal.setEtat(animal.current_friendship == animal.getMaxFriendship() ? new FriendlyState() : new NotHungryState());
+            }
             animal.current_hunger = animal.getMaxHunger();
             map[toEat.getPosX()][toEat.getPosY()].setForeground(animal);
             map[toEat.getPosX()][toEat.getPosY()].setBackground(Map.getInstance().getFactory().instanciateEmptySpace(toEat.getPosX(), toEat.getPosY()));

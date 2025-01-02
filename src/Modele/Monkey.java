@@ -7,6 +7,7 @@ public class Monkey extends Animal{
     public Monkey(int x, int y) {
         this.posX = x;
         this.posY = y;
+        this.junkieMoveRange = 1;
         setBgColor("\u001B[43m");
         setFontColor("\u001B[30m");
         setRepresentation("M");

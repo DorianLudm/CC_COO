@@ -6,6 +6,7 @@ import java.util.Random;
 public class FriendlyState extends AnimalState{
     @Override
     public void play(MapTile[][] map, Animal animal){
+        if (animal.hasPlayed){return;}
         animal.current_hunger--;
         animal.hasPlayed = true;
         if(animal.current_hunger == 0){
