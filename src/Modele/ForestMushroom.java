@@ -7,8 +7,7 @@ public class ForestMushroom extends Mushroom{
         this.posX = x;
         this.posY = y;
         this.isVenomous = this.rollAttribute();
-        setBgColor("\u001B[47m");
-        initFontColor();
+        initColor();
         setRepresentation("C");
         pickable = true;
     }

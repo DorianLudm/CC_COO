@@ -7,8 +7,7 @@ public class JungleMushroom extends Mushroom{
         this.posX = x;
         this.posY = y;
         this.isHalucinatif = this.rollAttribute();
-        setBgColor("\u001B[43m");
-        initFontColor();
+        initColor();
         setRepresentation("C");
         pickable = true;
     }

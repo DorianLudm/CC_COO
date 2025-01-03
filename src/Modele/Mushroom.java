@@ -10,12 +10,14 @@ public abstract class Mushroom extends MapObject{
 
     public abstract boolean isWeirdMushroom();
 
-    protected void initFontColor(){
+    protected void initColor(){
         if(this.isWeirdMushroom()){
-            this.setFontColor("\u001B[31m");
+            this.setFontColor("\u001B[30m");
+            this.setBgColor("\u001B[46m");
         }
         else{
             this.setFontColor("\u001B[34m");
+            this.setBgColor("\u001B[47m");
         }
     }
 }
