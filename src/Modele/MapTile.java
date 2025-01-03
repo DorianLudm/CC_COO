@@ -58,4 +58,14 @@ public class MapTile {
     public void resetHasPlayed(){
         if (this.hasForeground()){this.foreground.resetHasPlayed();}
     }
+
+    public MapTile copie(){
+        if (foreground instanceof Animal){
+            return new MapTile(background, foreground.clone());
+        }
+        else return new MapTile(background);
+    }
 }
+
+
+

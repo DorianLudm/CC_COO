@@ -1,6 +1,6 @@
 package Modele;
 
-public abstract class MapObject{
+public abstract class MapObject implements Cloneable{
     public final String ANSI_RESET = "\u001B[0m";
     private String bgColor;
     private String fontColor;
@@ -30,4 +30,13 @@ public abstract class MapObject{
     protected void setCoords(int x, int y){posX = x; posY = y;}
     public boolean hasPlayed(){return this.hasPlayed;}
     public void resetHasPlayed(){this.hasPlayed = false;}
+
+    @Override
+    public MapObject clone(){
+        try {
+            return (MapObject) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("Clonage non supporté", e);
+        }
+    }
 }

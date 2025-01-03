@@ -12,6 +12,20 @@ public class Map{
 
     private Map(){}
 
+    public MapTile[][] deepCopy() {
+        if (map == null) { return null; }
+
+        MapTile[][] newMap = new MapTile[map.length][map[0].length];
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] != null) {
+                    newMap[i][j] = map[i][j].copie();
+                }
+            }
+        }
+        return newMap;
+    }
+
     public void Init(int x, int y, String biome){ // map générer.
         switch(biome){
             case "forest" :
