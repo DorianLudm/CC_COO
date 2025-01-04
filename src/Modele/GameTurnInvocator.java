@@ -5,10 +5,18 @@ import java.util.Deque;
 
 public class GameTurnInvocator {
 
+    private static GameTurnInvocator instance;
     private Deque<GameTurnCommand> gameTurnCommands;
 
-    public GameTurnInvocator() {
+    private GameTurnInvocator() {
         this.gameTurnCommands = new ArrayDeque<>();
+    }
+
+    public static GameTurnInvocator getInstance() {
+        if (instance == null) {
+            instance = new GameTurnInvocator();
+        }
+        return instance;
     }
 
     /** Add a GameTurnCommand to your GameTurn History

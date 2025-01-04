@@ -1,6 +1,7 @@
 package Controleurs;
 
 import IHM.Ihm;
+import Modele.GameTurnInvocator;
 import Modele.Map;
 
 public class ControleurInteraction {
@@ -25,6 +26,11 @@ public class ControleurInteraction {
 
     public void drop(int indDirection, String item){
         map.playerDrop(indDirection, item);
+        ihm.maj(map.toString());
+    }
+
+    public void rewind(int rewindValue){
+        map.rewind(rewindValue);
         ihm.maj(map.toString());
     }
 
