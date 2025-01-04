@@ -5,31 +5,24 @@ import java.util.Queue;
 
 public class GameTurnCommand {
 
-    private Map map;
-    private Queue<String> logs;
-    // on peut potentiellement séparer les logs joueur et npc
+    private MapTile[][] map;
+    private int playerX;
+    private int playerY;
 
-    public GameTurnCommand() {
-        this.map = null;
-        this.logs = new LinkedList<>();
+    public GameTurnCommand(Map map) {
+        this.map = map.deepCopy();
+        this.playerX = Player.getInstance().posX;
+        this.playerY = Player.getInstance().posY;
     }
 
-    public Map getMap() {
+    public MapTile[][] getMap() {
         return map;
     }
 
-    public void setMap(Map map) {
+    public int getPlayerX() { return playerX; }
+    public int getPlayerY() { return playerY; }
+
+    public void setMap(MapTile[][] map) {
         this.map = map;
     }
-
-    public Queue<String> getLogs() {
-        return logs;
-    }
-
-    public void addLog(String log) {
-        this.logs.add(log);
-    }
-
-
-
 }
