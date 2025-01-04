@@ -15,7 +15,7 @@ public class FriendlyState extends AnimalState{
         
         int x = animal.getPosX(); int y =  animal.getPosY();
         ArrayList<MapTile> moveSpaces = new ArrayList<>();
-        for(MapTile obj: Map.getInstance().getSurroudings(x, y)){
+        for(MapTile obj: Map.getInstance().getSurroundings(x, y)){
             if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
         }
 

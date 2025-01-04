@@ -17,7 +17,7 @@ public class AteWeirdShroomState extends AnimalState{
         for(int i=0; i < cpt; i++){
             int x = animal.getPosX(); int y =  animal.getPosY();
             ArrayList<MapTile> moveSpaces = new ArrayList<>();
-            for(MapTile obj: Map.getInstance().getSurroudings(x, y)){
+            for(MapTile obj: Map.getInstance().getSurroundings(x, y)){
                 if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
             }
 

@@ -8,7 +8,7 @@ public class Snake extends JunglePredator{
         this.moveRadius = 2;
         setBgColor("\u001B[43m");
         setFontColor("\u001B[30m");
-        setRepresentation("E");
+        setRepresentation("S");
     }
 
     @Override

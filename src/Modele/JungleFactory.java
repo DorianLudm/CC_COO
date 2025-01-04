@@ -1,5 +1,7 @@
 package Modele;
 
+import java.util.Random;
+
 public class JungleFactory implements Factory{
     public Animal instanciateAnimal(int x, int y){
         return new Monkey(x, y);
@@ -23,5 +25,10 @@ public class JungleFactory implements Factory{
 
     public Mushroom instanciateMushroom(int x, int y){
         return new JungleMushroom(x, y);
+    }
+
+    public BiomePredator instanciatePredator(int x, int y){
+        Random rd = new Random();
+        return rd.nextInt(2) == 0 ? new Scorpion(x, y) : new Snake(x, y);
     }
 }

@@ -175,7 +175,7 @@ public class Map{
         int playerPosX = player.posX; // lignes
         int playerPosY = player.posY; // colonnes
 
-        MapTile voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
+        MapTile voisin = getSurroundings(playerPosX,playerPosY)[indDirection];
 
         if (voisin != null && voisin.isReachable()){
 
@@ -191,7 +191,7 @@ public class Map{
 
     /***/
     public void playerFight(int indDirection){
-        MapTile voisin = getSurroudings(player.posX,player.posY)[indDirection];
+        MapTile voisin = getSurroundings(player.posX,player.posY)[indDirection];
         voisin.getBackground().attacked();
         voisin.getForeground().attacked();
         NPCturn();
@@ -202,7 +202,7 @@ public class Map{
         int playerPosX = player.getPosX();
         int playerPosY = player.getPosY();
 
-        MapTile voisin = getSurroudings(playerPosX,playerPosY)[indDirection];
+        MapTile voisin = getSurroundings(playerPosX,playerPosY)[indDirection];
 
         if (voisin.isPickable()){
             player.addItem(voisin.getBackground());
@@ -212,7 +212,7 @@ public class Map{
     }
 
     public void playerDrop(int indDirection, String item){
-        MapTile voisin = getSurroudings(player.posX,player.posY)[indDirection];
+        MapTile voisin = getSurroundings(player.posX,player.posY)[indDirection];
 
         if (voisin != null && voisin.isReachable()){
             if (player.removeItem(item) != null)
@@ -228,7 +228,7 @@ public class Map{
         NPCturn();
     }
 
-    public MapTile[] getSurroudings(int x, int y){
+    public MapTile[] getSurroundings(int x, int y){
         MapTile[] res = new MapTile[4];
         res[0] = (x > 0) ? map[x - 1][y] : null;
         res[1] = (y > 0) ? map[x][y - 1] : null;

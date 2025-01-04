@@ -1,9 +1,14 @@
 package Modele;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public abstract class Animal extends MapObject{
     protected int current_hunger;
     protected int current_friendship;
     protected int junkieMoveRange;
+    protected int scaredCooldown;
     private AnimalState currentState;
 
     @Override
@@ -18,6 +23,8 @@ public abstract class Animal extends MapObject{
 
     public abstract int getMaxHunger();
     public abstract int getMaxFriendship();
+    public abstract int getMaxFear();
+    public void resetFearCooldown(){this.scaredCooldown = this.getMaxFear();}
 
     public void setEtat(AnimalState newState){
         this.currentState = newState;
@@ -35,5 +42,23 @@ public abstract class Animal extends MapObject{
 
     public int getJunkieMoveRange(){
         return this.junkieMoveRange;
+    }
+
+    public boolean predatorAttack(MapTile[][] map, Animal prey, Class<?> escapeType){
+        MapTile[] surroundings = Map.getInstance().getSurroundings(prey.getPosX(), prey.getPosY());
+        List<MapTile> validSpots = new ArrayList<>();
+        for(MapTile tile: surroundings){
+            if(escapeType.isInstance(tile.getBackground())){
+                validSpots.add(tile);
+            }
+        }
+        if(validSpots.isEmpty()){return false;}
+        Random rd = new Random();
+        MapTile escapeSpot = validSpots.get(rd.nextInt(validSpots.size()));
+        map[prey.getPosX()][prey.getPosY()].setForeground(null);
+        map[escapeSpot.getPosX()][escapeSpot.getPosY()].setForeground(prey);
+        prey.setEtat(new FearState());
+        prey.resetFearCooldown();
+        return true;
     }
 }

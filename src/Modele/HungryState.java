@@ -22,7 +22,7 @@ public class HungryState extends AnimalState{
         ArrayList<MapTile> moveSpaces = new ArrayList<>();
 
         MapObject toEat = null;
-        for(MapTile tile: Map.getInstance().getSurroudings(x, y)){
+        for(MapTile tile: Map.getInstance().getSurroundings(x, y)){
             if (tile != null){
                 MapObject obj = tile.getBackground();
                 boolean shouldEat = shouldEatObject(toEat, obj);
@@ -33,7 +33,7 @@ public class HungryState extends AnimalState{
         if (toEat != null){
             int foodX = toEat.getPosX(); int foodY = toEat.getPosY();
             // Check if the player is around the food the animal is going to eat and set the according state
-            MapTile[] foodSurroundings = Map.getInstance().getSurroudings(foodX, foodY);
+            MapTile[] foodSurroundings = Map.getInstance().getSurroundings(foodX, foodY);
             boolean befriend = false;
             for(MapTile obj: foodSurroundings){if(obj != null && obj.getForeground() instanceof Player){befriend = true;}}
             animal.current_friendship = befriend ? animal.current_friendship+1 : 0;

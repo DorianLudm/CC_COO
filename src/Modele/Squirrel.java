@@ -3,6 +3,7 @@ package Modele;
 public class Squirrel extends Animal{
     private static int MAX_HUNGER = 5;
     private static int MAX_FRIENDSHIP = 1;
+    private static int MAX_FEAR = 3;
 
     public Squirrel(int x, int y) {
         this.posX = x;
@@ -18,4 +19,5 @@ public class Squirrel extends Animal{
 
     public int getMaxHunger(){return MAX_HUNGER;}
     public int getMaxFriendship(){return MAX_FRIENDSHIP;}
+    public int getMaxFear(){return MAX_FEAR;}
 }

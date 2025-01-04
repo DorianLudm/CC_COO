@@ -3,6 +3,7 @@ package Modele;
 public class Monkey extends Animal{
     private static int MAX_HUNGER = 3;
     private static int MAX_FRIENDSHIP = 2;
+    private static int MAX_FEAR = 3;
 
     public Monkey(int x, int y) {
         this.posX = x;
@@ -18,4 +19,5 @@ public class Monkey extends Animal{
 
     public int getMaxHunger(){return MAX_HUNGER;}
     public int getMaxFriendship(){return MAX_FRIENDSHIP;}
+    public int getMaxFear(){return MAX_FEAR;}
 }
