@@ -3,6 +3,8 @@ package IHM;
 import Controleurs.ControleurGestionnairePartie;
 import Controleurs  .ControleurInteraction;
 import Controleurs.ControleurMouvement;
+import Modele.GameTurnCommand;
+import Modele.GameTurnInvocator;
 import Modele.Map;
 
 import java.util.Scanner;
@@ -14,6 +16,7 @@ public class Ihm{
     private ControleurMouvement ctlMouvement;
     private ControleurInteraction ctlInteraction;
     private ControleurGestionnairePartie ctlGP;
+    private GameTurnInvocator gameTurnInvocator;
     private Scanner sc;
     private Map map;
 
@@ -74,6 +77,9 @@ public class Ihm{
         }
         this.ctlInteraction = new ControleurInteraction(this, this.map);
         this.ctlMouvement = new ControleurMouvement(this, this.map);
+        this.gameTurnInvocator = GameTurnInvocator.getInstance();
+        gameTurnInvocator.push(new GameTurnCommand(this.map));
+
         this.ctlGP.startGame();
     }
 
@@ -86,6 +92,7 @@ public class Ihm{
                     " 'pick' pour ramasser un objet\n" +
                     "- 'attack' pour attaquer un animal\n" +
                     "- 'drop' pour lancer un item ou un animal\n" +
+                    "- 'rewind' pour revenir dans le temps\n" +
                     "- 'quit' pour arrêter la partie\n" +
                     "- (z,q,s,d) pour vous déplacer");
     
@@ -109,6 +116,9 @@ public class Ihm{
                     break;
                 case "drop":
                     handleDropAction();
+                    break;
+                case "rewind":
+                    handleRewindAction();
                     break;
                 case "quit":
                     ctlGP.stopGame();
@@ -196,6 +206,20 @@ public class Ihm{
                 break;
             case "d":
                 ctlInteraction.drop(3, scInputItem);
+                break;
+        }
+    }
+
+    private void handleRewindAction() {
+        System.out.println("De combien de tours voulez-vous remonter le temps ?");
+        String scInputRewindValue = sc.next();
+        if (scInputRewindValue == null) return;
+        switch (scInputRewindValue) {
+            case "2":
+                ctlInteraction.rewind(2);
+                break;
+            case "3":
+                ctlInteraction.rewind(3);
                 break;
         }
     }

@@ -4,10 +4,10 @@ F
 AAAAAAAAAA
 A E @    A
 AAAAA    A
-A        A
-A        A
-A        A
-A        A
+A    3   A
+A    2   A
+A    2   A
+A    3   A
 A        A
 A        A
 AAAAAAAAAA

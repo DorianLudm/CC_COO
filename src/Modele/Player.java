@@ -38,6 +38,9 @@ public class Player extends MapObject{
 
     public void addItem(MapObject item){
         String type = item.getClass().getSimpleName();
+        if (item instanceof RareRock){
+            type += ((RareRock) item).getRewindValue();
+        }
         System.out.println(type);
         stacksInventory.put(type, stacksInventory.getOrDefault(type, 0) + 1);
     }
@@ -72,7 +75,7 @@ public class Player extends MapObject{
     public String toString() {
         String s = "Player Inventory : ";
         for (String item : stacksInventory.keySet()) {
-            s += item + ", " + stacksInventory.get(item);
+            s += item + ", " + stacksInventory.get(item) + " ; ";
         }
         s += "\n Animals : ";
         for (Animal animal : animalsInventory) {

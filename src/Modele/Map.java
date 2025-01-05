@@ -131,6 +131,12 @@ public class Map{
                         case 'C':
                             map[line-3][posy].setBackground(this.factory.instanciateMushroom(line-3,posy));
                             break;
+                        case '2':
+                            map[line-3][posy].setBackground(new RareRock(line-3, posy, 2));
+                            break;
+                        case '3':
+                            map[line-3][posy].setBackground(new RareRock(line-3, posy, 3));
+                            break;
                         case '@':
                             System.out.println(line-3 + " " + posy);
                             player=Player.getInstance(line-3,posy);
@@ -185,6 +191,8 @@ public class Map{
                 obj2.resetHasPlayed();
             }
         }
+
+        GameTurnInvocator.getInstance().push(new GameTurnCommand(this));
     }
 
     /***/
@@ -239,10 +247,33 @@ public class Map{
                     map[voisin.getPosX()][voisin.getPosY()].setForeground(factory.instanciateAnimal(voisin.getPosX(), voisin.getPosY()));
                 } else if (item.equals("ForestMushroom") || item.equals("JungleMushroom")) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateMushroom(voisin.getPosX(), voisin.getPosY()));
+                } else if (item.equals("RareRock2")) { // possible modification en séparant la chaine en deux + automatisation pour tout n
+                    map[voisin.getPosX()][voisin.getPosY()].setBackground(new RareRock(voisin.getPosX(), voisin.getPosY(), 2));
+                } else if (item.equals("RareRock3")) {
+                    map[voisin.getPosX()][voisin.getPosY()].setBackground(new RareRock(voisin.getPosX(), voisin.getPosY(), 3));
                 }
         }
 
         NPCturn();
+    }
+
+    public void rewind(int rewindValue){
+        if (player.removeItem("RareRock" + rewindValue) != null) {
+            GameTurnInvocator gti = GameTurnInvocator.getInstance();
+            GameTurnCommand gtc = gti.pop(); // comme la commande est sauvegardée au début du tour il faut faire un pop 'de plus'
+            for (int i = 0; i < rewindValue; i++) {
+                gtc = gti.pop();
+            }
+            map = gtc.getMap();
+            map[gtc.getPlayerX()][gtc.getPlayerY()].setForeground(player);
+            player.posX = gtc.getPlayerX();
+            player.posY = gtc.getPlayerY();
+
+            RareRock newRock = new RareRock(player.posX, player.posY, 0);
+            newRock.setBgColor("\u001B[47m");
+
+            player.addItem(newRock);
+        }
     }
 
     public MapTile[] getSurroundings(int x, int y){
