@@ -2,7 +2,6 @@ package Modele;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,28 +10,7 @@ public abstract class BiomePredator extends MapObject {
     protected int moveRadius;
 
     protected Map<Integer, List<MapTile>> scanForPrey(MapTile[][] map, BiomePredator predator) {
-        Map<Integer, List<MapTile>> res = new HashMap<>();
-        int predatorX = predator.getPosX();
-        int predatorY = predator.getPosY();
-        for (int i = (predatorX - predator.detectionRadius); i <= (predatorX + predator.detectionRadius); i++) {
-            for (int j = (predatorY - predator.detectionRadius); j <= (predatorY + predator.detectionRadius); j++) {
-                if (i >= 0 && j >= 0 && i < map.length && j < map[0].length) {
-                    MapTile obj = map[i][j];
-                    int deltaX = Math.abs(predatorX - obj.getPosX());
-                    int deltaY = Math.abs(predatorY - obj.getPosY());
-                    int distance = deltaX + deltaY;
-                    if (res.containsKey(distance)) {
-                        List<MapTile> list = res.get(distance);
-                        list.add(obj);
-                    } else {
-                        List<MapTile> list = new ArrayList<>();
-                        list.add(obj);
-                        res.put(distance, list);
-                    }
-                }
-            }
-        }
-        return res;
+        return Modele.Map.scanArea(map, predator, predator.detectionRadius);
     }
 
     protected void randomMove(MapTile[][] map, BiomePredator predator){
@@ -54,17 +32,6 @@ public abstract class BiomePredator extends MapObject {
     }
 
     protected List<MapTile> findClosestPreys(MapTile[][] map, BiomePredator predator, Class<?> preyType){
-        Map<Integer, List<MapTile>> detection = this.scanForPrey(map, predator);
-        List<MapTile> toEat = new ArrayList<>();
-        for (Map.Entry<Integer, List<MapTile>> entry : detection.entrySet()){
-            List<MapTile> tiles = entry.getValue();
-            for(MapTile tile: tiles){
-                if(preyType.isInstance(tile.getForeground()) && tile.getBackground() instanceof EmptySpace){
-                    toEat.add(tile);
-                }
-            }
-            if(toEat.size() > 0){break;}
-        }
-        return toEat;
+        return Modele.Map.findClosestEntityOfType(map, predator, predator.detectionRadius, preyType);
     }
 }

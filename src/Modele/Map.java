@@ -2,6 +2,9 @@ package Modele;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class Map{
@@ -249,6 +252,46 @@ public class Map{
         res[2] = (x < map.length - 1) ? map[x + 1][y] : null;
         res[3] = (y < map[x].length - 1) ? map[x][y + 1] : null;
         return res;
+    }
+
+    public static java.util.Map<Integer, List<MapTile>> scanArea(MapTile[][] map, MapObject scanPosition, int scanRadius){
+        java.util.Map<Integer, List<MapTile>> res = new HashMap<>();
+        int predatorX = scanPosition.getPosX();
+        int predatorY = scanPosition.getPosY();
+        for (int i = (predatorX - scanRadius); i <= (predatorX + scanRadius); i++) {
+            for (int j = (predatorY - scanRadius); j <= (predatorY + scanRadius); j++) {
+                if (i >= 0 && j >= 0 && i < map.length && j < map[0].length) {
+                    MapTile obj = map[i][j];
+                    int deltaX = Math.abs(predatorX - obj.getPosX());
+                    int deltaY = Math.abs(predatorY - obj.getPosY());
+                    int distance = deltaX + deltaY;
+                    if (res.containsKey(distance)) {
+                        List<MapTile> list = res.get(distance);
+                        list.add(obj);
+                    } else {
+                        List<MapTile> list = new ArrayList<>();
+                        list.add(obj);
+                        res.put(distance, list);
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+    public static List<MapTile> findClosestEntityOfType(MapTile[][] map, MapObject scanPosition, int scanRadius, Class<?> preyType){
+        java.util.Map<Integer, List<MapTile>> detection = Map.scanArea(map, scanPosition, scanRadius);
+        List<MapTile> toEat = new ArrayList<>();
+        for (java.util.Map.Entry<Integer, List<MapTile>> entry : detection.entrySet()){
+            List<MapTile> tiles = entry.getValue();
+            for(MapTile tile: tiles){
+                if(preyType.isInstance(tile.getForeground()) && tile.getBackground() instanceof EmptySpace){
+                    toEat.add(tile);
+                }
+            }
+            if(toEat.size() > 0){break;}
+        }
+        return toEat;
     }
 
     @Override
