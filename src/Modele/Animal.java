@@ -48,7 +48,7 @@ public abstract class Animal extends MapObject{
         MapTile[] surroundings = Map.getInstance().getSurroundings(prey.getPosX(), prey.getPosY());
         List<MapTile> validSpots = new ArrayList<>();
         for(MapTile tile: surroundings){
-            if(escapeType.isInstance(tile.getBackground())){
+            if(tile != null && escapeType.isInstance(tile.getBackground()) && tile.getForeground() == null){
                 validSpots.add(tile);
             }
         }

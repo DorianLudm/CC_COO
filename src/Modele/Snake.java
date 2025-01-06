@@ -10,6 +10,7 @@ public class Snake extends JunglePredator{
     int eatingDuration;
     Animal prey;
     Snake(int x, int y){
+        System.out.println("Snake Constructor");
         this.posX = x;
         this.posY = y;
         this.detectionRadius = 1;
