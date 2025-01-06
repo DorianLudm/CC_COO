@@ -17,7 +17,6 @@ public class Snake extends JunglePredator{
         setBgColor("\u001B[43m");
         setFontColor("\u001B[30m");
         setRepresentation("S");
-
     }
 
     @Override
@@ -29,11 +28,10 @@ public class Snake extends JunglePredator{
         hasPlayed = true;
 
         if(isEating){ //Le serpent est en train de manger
+            eatingDuration--;
             if(eatingDuration == 0){
                 this.prey=null;
-                return;
             }
-            eatingDuration--;
             return;
         }
         Map<Integer, List<MapTile>> data = scanForPrey(map, this);
