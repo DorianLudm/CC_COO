@@ -48,8 +48,11 @@ public class Map{
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j), factory.instanciateAnimal(i, j));
                 }else if(repartition[i][j]>0.71) {
                     map[i][j] = new MapTile(factory.instanciateFruit(i, j));
-                }else if(repartition[i][j] > 0.58){
+                }else if(repartition[i][j] > 0.59){
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j));
+                }else if(repartition[i][j] > 0.5875){
+                    map[i][j] = new MapTile(factory.instanciatePredator(i, j));
+                    System.out.println(repartition[i][j]);
                 }else if(repartition[i][j] < 0.56){
                     map[i][j] = new MapTile(factory.instanciateTree(i, j));
                 }
