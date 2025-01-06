@@ -39,7 +39,7 @@ public class Snake extends JunglePredator{
             List<MapTile> tiles = data.get(1);
             for(MapTile tile : tiles){
                 if(tile.getForeground() instanceof Monkey monkey){
-                    if(monkey.predatorAttack(map, monkey, ForestTree.class)) {
+                    if(monkey.predatorAttack(map, monkey, CoconutTree.class)) {
                         this.prey = monkey;
                         tile.setForeground(null);
                         isEating = true;
