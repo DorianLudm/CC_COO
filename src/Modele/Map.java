@@ -52,7 +52,6 @@ public class Map{
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j));
                 }else if(repartition[i][j] > 0.5875){
                     map[i][j] = new MapTile(factory.instanciatePredator(i, j));
-                    System.out.println(repartition[i][j]);
                 }else if(repartition[i][j] < 0.56){
                     map[i][j] = new MapTile(factory.instanciateTree(i, j));
                 }
