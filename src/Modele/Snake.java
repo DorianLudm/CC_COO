@@ -42,7 +42,6 @@ public class Snake extends JunglePredator{
             for(MapTile tile : tiles){
                 if(tile.getForeground() instanceof Monkey monkey){
                     if(monkey.predatorAttack(map, monkey, ForestTree.class)) {
-                        monkey.isEaten = true;
                         this.prey = monkey;
                         tile.setForeground(null);
                         isEating = true;
@@ -52,7 +51,7 @@ public class Snake extends JunglePredator{
                 }
             }
         }
-        for(int i=0; i < 2; i++){
+        for(int i=0; i < moveRadius; i++){
             int x = this.posX; int y =  this.posY;
             ArrayList<MapTile> moveSpaces = new ArrayList<>();
             for(MapTile obj: Modele.Map.getInstance().getSurroundings(x, y)){
@@ -73,12 +72,11 @@ public class Snake extends JunglePredator{
     @Override
     public void attacked(){
         int x = this.posX; int y =  this.posY;
-        ArrayList<MapTile> moveSpaces = new ArrayList<>();
-        Monkey monkey = (Monkey) this.prey;
-        monkey.isEaten = false;
+
         isEating = false;
         for(MapTile obj: Modele.Map.getInstance().getSurroundings(x, y)){
             if(obj != null && obj.isReachable()){
+                prey.setEtat(new FearState());
                 obj.setForeground(this.prey);
                 this.prey.setCoords(obj.getPosX(), obj.getPosY());
                 this.prey = null;

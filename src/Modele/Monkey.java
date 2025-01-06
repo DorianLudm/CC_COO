@@ -1,7 +1,6 @@
 package Modele;
 
 public class Monkey extends Animal{
-    protected boolean isEaten;
     private static int MAX_HUNGER = 3;
     private static int MAX_FRIENDSHIP = 2;
     private static int MAX_FEAR = 3;
