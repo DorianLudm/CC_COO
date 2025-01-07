@@ -22,12 +22,10 @@ public class Fox extends ForestPredator{
             Random rd = new Random();
             MapTile target = toEat.get(rd.nextInt(toEat.size()));
             Animal prey = (Animal) target.getForeground();
-            boolean escaped = prey.predatorAttack(map, prey, ForestTree.class);
-            if(!escaped){
-                target.setForeground(null);
-            }
+            prey.predatorAttack(map, prey, ForestTree.class);
             map[this.getPosX()][this.getPosY()].setForeground(null);
             target.setForeground(this);
+            this.setCoords(target.getPosX(), target.getPosY());
         }
         else{
             this.randomMove(map, this);
