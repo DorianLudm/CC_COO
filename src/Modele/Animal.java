@@ -30,12 +30,14 @@ public abstract class Animal extends MapObject{
 
     public void setEtat(AnimalState newState){
         this.currentState = newState;
+        pickable = false;
         if (newState instanceof HungryState){
             this.setFontColor("\u001B[30m");
         } else if (newState instanceof NotHungryState){
             this.setFontColor("\u001B[34m");
         } else if (newState instanceof FriendlyState){
             this.setFontColor("\u001B[35m");
+            pickable = true;
         } else if (newState instanceof AteWeirdShroomState){
             System.out.println("Passage en mode junkie!");
             this.setFontColor("\u001B[31m");

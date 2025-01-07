@@ -161,6 +161,9 @@ public class Map{
                 obj2.resetHasPlayed();
             }
         }
+        for(Animal a : player.getAnimals().values()){
+            a.play(map);
+        }
 
         GameTurnInvocator.getInstance().push(new GameTurnCommand(this));
     }
@@ -200,8 +203,14 @@ public class Map{
         MapTile voisin = getSurroundings(playerPosX,playerPosY)[indDirection];
 
         if (voisin.isPickable()){
-            player.addItem(voisin.getBackground());
-            map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateEmptySpace(voisin.getPosX(), voisin.getPosY()));
+            if (voisin.getForeground() instanceof Animal){
+                player.addAnimal((Animal) voisin.getForeground());
+                map[voisin.getPosX()][voisin.getPosY()].setForeground(null);
+            }
+            else{
+                player.addItem(voisin.getBackground());
+                map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateEmptySpace(voisin.getPosX(), voisin.getPosY()));
+            }
         }
         NPCturn();
     }
@@ -210,11 +219,9 @@ public class Map{
         MapTile voisin = getSurroundings(player.posX,player.posY)[indDirection];
 
         if (voisin != null && voisin.isReachable()){
-            if (player.removeItem(item) != null)
-                if (item.equals("Banana") || item.equals("Acorn"))
+            if (player.removeItem(item) != null) {
+                if (item.equals("Banana") || item.equals("Acorn")) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateFruit(voisin.getPosX(), voisin.getPosY()));
-                else if (item.equals("Squirrel") || item.equals("Monkey")) {
-                    map[voisin.getPosX()][voisin.getPosY()].setForeground(factory.instanciateAnimal(voisin.getPosX(), voisin.getPosY()));
                 } else if (item.equals("ForestMushroom") || item.equals("JungleMushroom")) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateMushroom(voisin.getPosX(), voisin.getPosY()));
                 } else if (item.equals("RareRock2")) { // possible modification en séparant la chaine en deux + automatisation pour tout n
@@ -222,6 +229,13 @@ public class Map{
                 } else if (item.equals("RareRock3")) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(new RareRock(voisin.getPosX(), voisin.getPosY(), 3));
                 }
+            }
+            else {
+                Animal a = player.removeAnimal(item);
+                if (a != null) {
+                    map[voisin.getPosX()][voisin.getPosY()].setBackground(a);
+                }
+            }
         }
 
         NPCturn();

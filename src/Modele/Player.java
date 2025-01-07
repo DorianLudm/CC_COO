@@ -9,7 +9,7 @@ public class Player extends MapObject{
     private static Player instance;
 
     private java.util.Map<String,Integer> stacksInventory;
-    private List<Animal> animalsInventory;
+    private java.util.Map<String,Animal> animalsInventory;
 
     private Player(int posX, int posY) {
         setBgColor("\u001B[47m");
@@ -19,7 +19,7 @@ public class Player extends MapObject{
         this.posY = posY;
 
         this.stacksInventory = new HashMap<>();
-        this.animalsInventory = new ArrayList<>();
+        this.animalsInventory = new HashMap<>();
     }
 
     public static Player getInstance(int posX, int posY) {
@@ -60,14 +60,14 @@ public class Player extends MapObject{
     }
 
     public void addAnimal(Animal animal){
-        animalsInventory.add(animal);
+        animalsInventory.put("" + animalsInventory.size(), animal);
     }
 
-    public void removeAnimal(){
-        // si le nbr de tour restant sur le joueur est = 0 alors il descend
+    public Animal removeAnimal(String index){
+        return animalsInventory.remove(index);
     }
 
-    public List<Animal> getAnimals(){
+    public java.util.Map<String,Animal> getAnimals(){
         return animalsInventory;
     }
 
@@ -78,8 +78,8 @@ public class Player extends MapObject{
             s += item + ", " + stacksInventory.get(item) + " ; ";
         }
         s += "\n Animals : ";
-        for (Animal animal : animalsInventory) {
-            s += animal + ", "; 
+        for (String ind : animalsInventory.keySet()) {
+            s += ind + ":" + animalsInventory.get(ind).getClass().getSimpleName() + ", ";
         }
         return s;
     }
