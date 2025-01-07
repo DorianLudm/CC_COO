@@ -188,7 +188,7 @@ public class Map{
     public void playerFight(int indDirection){
         MapTile voisin = getSurroundings(player.posX,player.posY)[indDirection];
         voisin.getBackground().attacked();
-        voisin.getForeground().attacked();
+        if(voisin.getForeground() != null){voisin.getForeground().attacked();}
         NPCturn();
     }
 
@@ -266,6 +266,7 @@ public class Map{
                     int deltaX = Math.abs(predatorX - obj.getPosX());
                     int deltaY = Math.abs(predatorY - obj.getPosY());
                     int distance = deltaX + deltaY;
+                    if(distance > scanRadius){continue;}
                     if (res.containsKey(distance)) {
                         List<MapTile> list = res.get(distance);
                         list.add(obj);
