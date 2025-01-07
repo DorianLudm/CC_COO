@@ -1,6 +1,7 @@
 package Modele;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class NotHungryState extends AnimalState{
@@ -13,19 +14,28 @@ public class NotHungryState extends AnimalState{
             animal.setEtat(new HungryState());
         }
 
-        int x = animal.getPosX(); int y =  animal.getPosY();
-        ArrayList<MapTile> moveSpaces = new ArrayList<>();
-        for(MapTile obj: Map.getInstance().getSurroundings(x, y)){
-            if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
-        }
-
+        // Looks for closest predator in the detection range
+        List<MapTile> predators = Map.findClosestEntityOfType(map, animal, animal.getDetectionRadius(), BiomePredator.class);
         Random rd = new Random();
-        int numberOfSpaces = moveSpaces.size();
-        if (numberOfSpaces > 0){
-            MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
-            moveLocation.setForeground(animal);
-            animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-            map[x][y].setForeground(null);
+        if(predators.size() > 0){
+            // If a predator is spotted, run away from it
+            MapTile predator = predators.get(rd.nextInt(predators.size()));
+            Animal.escapeFromPredator(map, animal, predator);
+        }
+        else{
+            int x = animal.getPosX(); int y =  animal.getPosY();
+            ArrayList<MapTile> moveSpaces = new ArrayList<>();
+            for(MapTile obj: Map.getInstance().getSurroundings(x, y)){
+                if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
+            }
+            
+            int numberOfSpaces = moveSpaces.size();
+            if (numberOfSpaces > 0){
+                MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+                moveLocation.setForeground(animal);
+                animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
+                map[x][y].setForeground(null);
+            }
         }
     }
 
