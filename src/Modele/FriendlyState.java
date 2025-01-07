@@ -14,23 +14,26 @@ public class FriendlyState extends AnimalState{
         }
 
         MapObject MOb = map[animal.getPosX()][animal.getPosY()].getForeground();
-        if(MOb != null && MOb.getPosX() == animal.getPosX() && MOb.getPosY() == animal.getPosY()){
-            
-        }
-        
-        int x = animal.getPosX(); int y =  animal.getPosY();
-        ArrayList<MapTile> moveSpaces = new ArrayList<>();
-        for(MapTile obj: Map.getInstance().getSurroundings(x, y)){
-            if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
-        }
+        // Check que l'animal est sur la carte
+        if(MOb != null && MOb instanceof Animal && MOb.getPosX() == animal.getPosX() && MOb.getPosY() == animal.getPosY()){
+            int x = animal.getPosX(); int y =  animal.getPosY();
+            ArrayList<MapTile> moveSpaces = new ArrayList<>();
+            for(MapTile obj: Map.getInstance().getSurroundings(x, y)){
+                if(obj != null && obj.isReachable()){moveSpaces.add(obj);}
+            }
 
-        Random rd = new Random();
-        int numberOfSpaces = moveSpaces.size();
-        if (numberOfSpaces > 0){
-            MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
-            moveLocation.setForeground(animal);
-            animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-            map[x][y].setForeground(null);
+            Random rd = new Random();
+            int numberOfSpaces = moveSpaces.size();
+            if (numberOfSpaces > 0){
+                MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+                moveLocation.setForeground(animal);
+                animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
+                map[x][y].setForeground(null);
+            }
+        }
+        // Sinon dans l'inventaire
+        else{
+            animal.friendlyBehavior();
         }
     }
 

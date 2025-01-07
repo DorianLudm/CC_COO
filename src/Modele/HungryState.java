@@ -1,6 +1,7 @@
 package Modele;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class HungryState extends AnimalState{
@@ -54,14 +55,23 @@ public class HungryState extends AnimalState{
             animal.setCoords(toEat.getPosX(), toEat.getPosY());
             map[x][y].setForeground(null);
         } else {
-            // Go to random emptyspace around itself
+            // Looks for closest predator in the detection range
+            List<MapTile> predators = Map.findClosestEntityOfType(map, animal, animal.getDetectionRadius(), BiomePredator.class);
             Random rd = new Random();
-            int numberOfSpaces = moveSpaces.size();
-            if (numberOfSpaces > 0){
-                MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
-                moveLocation.setForeground(animal);
-                animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-                map[x][y].setForeground(null);
+            if(predators.size() > 0){
+                // If a predator is spotted, run away from it
+                MapTile predator = predators.get(rd.nextInt(predators.size()));
+                Animal.escapeFromPredator(map, animal, predator);
+            }
+            else{
+                // Go to random emptyspace around itself
+                int numberOfSpaces = moveSpaces.size();
+                if (numberOfSpaces > 0){
+                    MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
+                    moveLocation.setForeground(animal);
+                    animal.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
+                    map[x][y].setForeground(null);
+                }
             }
         }
     }

@@ -67,4 +67,48 @@ public abstract class Animal extends MapObject{
     }
 
     protected abstract void friendlyBehavior();
+
+    protected static void escapeFromPredator(MapTile[][] map, Animal animal, MapTile predator){
+        int deltaX = animal.getPosX() - predator.getPosX();
+        int deltaY = animal.getPosY() - predator.getPosY();
+        int x = animal.getPosX();
+        int y = animal.getPosY();
+
+        // Calculate potential escape tiles
+        MapTile[] surroundings = Map.getInstance().getSurroundings(x, y);
+        List<MapTile> potentialEscapeTiles = new ArrayList<>();
+        if (deltaX > 0 && surroundings[2] != null) potentialEscapeTiles.add(surroundings[2]); // Move right
+        if (deltaX < 0 && surroundings[0] != null) potentialEscapeTiles.add(surroundings[0]); // Move left
+        if (deltaY > 0 && surroundings[3] != null) potentialEscapeTiles.add(surroundings[3]); // Move down
+        if (deltaY < 0 && surroundings[1] != null) potentialEscapeTiles.add(surroundings[1]); // Move up
+
+        // Find the best available tile
+        MapTile bestTile = null;
+        for (MapTile tile : potentialEscapeTiles) {
+            if (tile != null && tile.isReachable() && tile.getForeground() == null) {
+                bestTile = tile;
+                break;
+            }
+        }
+
+        // Special case: Animal is cornered and both the optimal and sub-optimal paths are not valid, the make the squirrel play a random other tile
+        if (bestTile == null) {
+            List<MapTile> availableTiles = new ArrayList<>();
+            for (MapTile tile : surroundings) {
+                if (tile != null && tile.isReachable() && tile.getForeground() == null) {
+                    availableTiles.add(tile);
+                }
+            }
+            if (!availableTiles.isEmpty()) {
+                Random rd = new Random();
+                bestTile = availableTiles.get(rd.nextInt(availableTiles.size()));
+            }
+        }
+
+        if (bestTile != null) {
+            bestTile.setForeground(animal);
+            animal.setCoords(bestTile.getPosX(), bestTile.getPosY());
+            map[x][y].setForeground(null);
+        }
+    }
 }
