@@ -9,6 +9,7 @@ public class Squirrel extends Animal{
         this.posX = x;
         this.posY = y;
         this.junkieMoveRange = 2;
+        this.detectionRadius = 4;
         setBgColor("\u001B[43m");
         setFontColor("\u001B[30m");
         setRepresentation("E");
@@ -20,4 +21,8 @@ public class Squirrel extends Animal{
     public int getMaxHunger(){return MAX_HUNGER;}
     public int getMaxFriendship(){return MAX_FRIENDSHIP;}
     public int getMaxFear(){return MAX_FEAR;}
+
+    protected void friendlyBehavior(){
+        System.out.println("Ouh! (Votre ami singe a détécté un danger!)");
+    }
 }

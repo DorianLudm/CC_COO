@@ -12,6 +12,11 @@ public class FriendlyState extends AnimalState{
         if(animal.current_hunger == 0){
             animal.setEtat(new HungryState());
         }
+
+        MapObject MOb = map[animal.getPosX()][animal.getPosY()].getForeground();
+        if(MOb != null && MOb.getPosX() == animal.getPosX() && MOb.getPosY() == animal.getPosY()){
+            
+        }
         
         int x = animal.getPosX(); int y =  animal.getPosY();
         ArrayList<MapTile> moveSpaces = new ArrayList<>();

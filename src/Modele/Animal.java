@@ -9,6 +9,7 @@ public abstract class Animal extends MapObject{
     protected int current_friendship;
     protected int junkieMoveRange;
     protected int scaredCooldown;
+    protected int detectionRadius;
     private AnimalState currentState;
 
     @Override
@@ -25,6 +26,7 @@ public abstract class Animal extends MapObject{
     public abstract int getMaxFriendship();
     public abstract int getMaxFear();
     public void resetFearCooldown(){this.scaredCooldown = this.getMaxFear();}
+    public int getDetectionRadius(){return this.detectionRadius;}
 
     public void setEtat(AnimalState newState){
         this.currentState = newState;
@@ -61,4 +63,6 @@ public abstract class Animal extends MapObject{
         prey.resetFearCooldown();
         return true;
     }
+
+    protected abstract void friendlyBehavior();
 }
