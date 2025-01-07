@@ -31,4 +31,8 @@ public class JungleFactory implements Factory{
         Random rd = new Random();
         return rd.nextInt(2) == 0 ? new Scorpion(x, y) : new Snake(x, y);
     }
+
+    public BiomePredator instanciatePredator(int x, int y, int type) {
+        throw new RuntimeException("méthode inadapté dans ce biome");
+    }
 }

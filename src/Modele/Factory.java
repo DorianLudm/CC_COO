@@ -8,4 +8,5 @@ public interface Factory {
     public EmptySpace instanciateEmptySpace(int x, int y);
     public Mushroom instanciateMushroom(int x, int y);
     public BiomePredator instanciatePredator(int x, int y);
+    public BiomePredator instanciatePredator(int x, int y, int type);
 }

@@ -6,14 +6,32 @@ public class TxtConverterJungle extends TxtConverter {
     }
 
     @Override
-    public MapObject generate(char letter, int x, int y){
-        MapObject result = null;
+    public MapObject[] generate(char letter, int x, int y){
+        MapObject[] result = new MapObject[2];
         switch(letter){
             case 'G':
-                result = facto.instanciateTree(x,y);
+                result[0] = facto.instanciateTree(x,y);
                 break;
             case 'B':
-                result = facto.instanciateFruit(x,y);
+                result[0] = facto.instanciateFruit(x,y);
+                break;
+            case 'M':
+                result[0] = facto.instanciateEmptySpace(x,y);
+                result[1] = facto.instanciateAnimal(x,y);
+                break;
+            case 'S':
+                result[0] = facto.instanciateEmptySpace(x,y);
+                result[1] = facto.instanciatePredator(x,y);
+                break;
+            case 'C':
+                result[0] = facto.instanciateMushroom(x,y);
+                break;
+            case 'X':
+                result[0] = facto.instanciateDecoration(x,y);
+                break;
+            case ' ':
+                result[0] = facto.instanciateEmptySpace(x,y);
+                break;
         }
         return result;
     }

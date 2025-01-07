@@ -69,17 +69,21 @@ public class Map{
         try (FileReader fileReader = new FileReader(path)) {
             int line = 0;int x =0;int y = 0;int posy = 0;
             int caractere;
+            TxtConverter converter = null;
             while ((caractere = fileReader.read()) != -1) {
                 char c = (char) caractere;
                 if(line == 0){
-                    switch(c){
-                        case 'F':
+                    converter = switch (c) {
+                        case 'F' -> {
                             this.factory = new ForestFactory();
-                            break;
-                        case 'J':
+                            yield new TxtConverterForest(this.factory);
+                        }
+                        case 'J' -> {
                             this.factory = new JungleFactory();
-                            break;
-                    }
+                            yield new TxtConverterJungle(this.factory);
+                        }
+                        default -> converter;
+                    };
                 }else if(line == 1 && caractere >= '0'){
                     x = x * 10 + caractere - '0';
                 }else if(line == 2 && caractere >= '0') {
@@ -100,50 +104,13 @@ public class Map{
                 }else if(c == 13){
                     continue;
                 }else{
-                    switch(c){
-                        case 'A':
-                            map[line-3][posy].setBackground(this.factory.instanciateTree(line-3,posy));
-                            break;
-                        case 'G':
-                            if(this.factory instanceof ForestFactory){
-                                map[line-3][posy].setBackground(this.factory.instanciateFruit(line-3,posy));
-                            }
-                            else{
-                                map[line-3][posy].setBackground(this.factory.instanciateTree(line-3,posy));
-                            }
-                            break;
-                        case 'E':
-                        case 'M':
-                            map[line-3][posy].setForeground(this.factory.instanciateAnimal(line-3,posy));
-                            break;
-                        case 'B':
-                            if(this.factory instanceof ForestFactory){
-                                map[line-3][posy].setBackground(this.factory.instanciateDecoration(line-3,posy));
-                            }
-                            else{
-                                map[line-3][posy].setBackground(this.factory.instanciateFruit(line-3,posy));
-                            }
-                            break;
-                        case 'X':
-                            map[line-3][posy].setBackground(this.factory.instanciateDecoration(line-3,posy));
-                            break;
-                        case ' ':
-                            map[line-3][posy].setBackground(this.factory.instanciateEmptySpace(line-3,posy));
-                            break;
-                        case 'C':
-                            map[line-3][posy].setBackground(this.factory.instanciateMushroom(line-3,posy));
-                            break;
-                        case '2':
-                            map[line-3][posy].setBackground(new RareRock(line-3, posy, 2));
-                            break;
-                        case '3':
-                            map[line-3][posy].setBackground(new RareRock(line-3, posy, 3));
-                            break;
-                        case '@':
-                            System.out.println(line-3 + " " + posy);
-                            player=Player.getInstance(line-3,posy);
-                            map[player.getPosX()][player.getPosY()].setForeground(player);
-                            break;
+                    assert converter != null;
+                    MapObject[] current = converter.generate(c,line-3,posy);
+                    if(current[0] != null){
+                    map[line-3][posy].setBackground(current[0]);
+                    }
+                    if(current[1] != null){
+                    map[line-3][posy].setForeground(current[1]);
                     }
                 }
                 posy++;
@@ -151,6 +118,7 @@ public class Map{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.player = Player.getInstance();
     }
     /***/
 

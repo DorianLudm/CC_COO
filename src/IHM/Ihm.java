@@ -72,7 +72,17 @@ public class Ihm{
             }
             this.ctlGP = new ControleurGestionnairePartie(this, this.map,x,y, biome);
         }if(typeMapGen.equals("y")){
-            String chemin = "./lib/carte.txt";
+            System.out.println("Avec ou sans prédateur ? y/n");
+            String preda = null;
+            String chemin = null;
+            if(sc.hasNext()){
+                preda = sc.next();
+            }
+            if(preda.equals("n")){
+                chemin = "./lib/carte_base.txt";
+            }else{
+                chemin = "./lib/carte_preda.txt";
+            }
             ctlGP = new ControleurGestionnairePartie(this, this.map,chemin);
         }
         this.ctlInteraction = new ControleurInteraction(this, this.map);
