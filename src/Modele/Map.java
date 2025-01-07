@@ -220,7 +220,7 @@ public class Map{
     public void playerFight(int indDirection){
         MapTile voisin = getSurroundings(player.posX,player.posY)[indDirection];
         voisin.getBackground().attacked();
-        voisin.getForeground().attacked();
+        if(voisin.getForeground() != null){voisin.getForeground().attacked();}
         NPCturn();
     }
 
