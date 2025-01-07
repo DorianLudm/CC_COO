@@ -7,6 +7,7 @@ public class Owl extends ForestPredator{
     private int stunned;
 
     Owl(int x, int y){
+        System.out.println("Hiboux jumpscare");
         this.posX = x;
         this.posY = y;
         this.detectionRadius = 3;
@@ -29,23 +30,21 @@ public class Owl extends ForestPredator{
             Random rd = new Random();
             MapTile target = toEat.get(rd.nextInt(toEat.size()));
             Animal prey = (Animal) target.getForeground();
-            boolean escaped = prey.predatorAttack(map, prey, Bush.class);
-            if(!escaped){
-                target.setForeground(null);
-            }
-            else{
-                setBgColor("\u001B[44m");
-            }
+            prey.predatorAttack(map, prey, Bush.class);
+
+            // Handle swapping positions
             map[this.getPosX()][this.getPosY()].setForeground(null);
-            target.setForeground(this);
+            map[target.getPosX()][target.getPosY()].setForeground(this);
+            this.setCoords(target.getPosX(), target.getPosY());
+
+            // Change owl state to be on cooldown
+            setBgColor("\u001B[44m");
+            this.stunned = 3;
         }
         else{
             this.randomMove(map, this);
         }
-        hasPlayed = true;
-
-        //if attacks fails
-        
+        hasPlayed = true;        
         return;
     }
 

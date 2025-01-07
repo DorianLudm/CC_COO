@@ -298,6 +298,7 @@ public class Map{
                     int deltaX = Math.abs(predatorX - obj.getPosX());
                     int deltaY = Math.abs(predatorY - obj.getPosY());
                     int distance = deltaX + deltaY;
+                    if(distance > scanRadius){continue;}
                     if (res.containsKey(distance)) {
                         List<MapTile> list = res.get(distance);
                         list.add(obj);
