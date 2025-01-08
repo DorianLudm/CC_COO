@@ -31,6 +31,7 @@ public class Snake extends JunglePredator{
             eatingDuration--;
             if(eatingDuration == 0){
                 this.prey=null;
+                setBgColor("\u001B[43m");
             }
             return;
         }
@@ -43,6 +44,7 @@ public class Snake extends JunglePredator{
                         this.prey = monkey;
                         tile.setForeground(null);
                         isEating = true;
+                        setBgColor("\u001B[46m");
                         eatingDuration = 3;                 //temps necessaire à la digestion du serpent
                     }
                     return;

@@ -20,8 +20,6 @@ public class Scorpion extends JunglePredator{
 
     @Override
     public void play(MapTile[][] map){
-        System.out.println(timeBeforeNextRock);
-
         if (hasPlayed){
             return;
         }
@@ -54,7 +52,7 @@ public class Scorpion extends JunglePredator{
                        this.isWaitingOnRock = true;
                        this.timeToWaitOnRock = 5;
                        this.timeBeforeNextRock = 10;
-                       setBgColor("\u001B[31m");
+                       setBgColor("\u001B[41m");
                    }
                }
             }

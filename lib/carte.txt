@@ -4,10 +4,10 @@ J
 AAAAAAAAAA
 A E      A
 AAAAA    A
-A        A
-A  @XSX  A
-A   XSX  A
-A   XSX  A
-A   XSX  A
-A        A
-AAAAAAAAAA
+A    M   A
+A  @MSM  A
+A   MSM  A
+A   MSMS A
+A   MSMS A
+A   SMSS A
+AAAAAGAAAA
