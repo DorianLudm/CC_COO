@@ -182,9 +182,9 @@ public class Map{
             /* map[playerPosX][playerPosY] factory.instanciateEmptySpace(playerPosX, playerPosY); */
             player.posX = voisin.getPosX();
             player.posY = voisin.getPosY();
-        }
 
-        NPCturn();
+            NPCturn();
+        }
     }
 
     /***/
@@ -211,8 +211,8 @@ public class Map{
                 player.addItem(voisin.getBackground());
                 map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateEmptySpace(voisin.getPosX(), voisin.getPosY()));
             }
+            NPCturn();
         }
-        NPCturn();
     }
 
     public void playerDrop(int indDirection, String item){
@@ -229,16 +229,16 @@ public class Map{
                 } else if (item.equals("RareRock3")) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(new RareRock(voisin.getPosX(), voisin.getPosY(), 3));
                 }
+                NPCturn();
             }
             else {
                 Animal a = player.removeAnimal(item);
                 if (a != null) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(a);
+                    NPCturn();
                 }
             }
         }
-
-        NPCturn();
     }
 
     public void rewind(int rewindValue){
