@@ -9,6 +9,10 @@ public class TxtConverterJungle extends TxtConverter {
     public MapObject[] generate(char letter, int x, int y){
         MapObject[] result = new MapObject[2];
         switch(letter){
+            case '@':
+                result[0] = facto.instanciateEmptySpace(x,y);
+                result[1] = Player.getInstance(x,y);
+                break;
             case 'G':
                 result[0] = facto.instanciateTree(x,y);
                 break;

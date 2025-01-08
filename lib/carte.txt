@@ -1,13 +1,13 @@
-F
+J
 10
 10
 AAAAAAAAAA
-A E @    A
+A E      A
 AAAAA    A
-A    3   A
-A    2   A
-A    2   A
-A    3   A
 A        A
+A  @XSX  A
+A   XSX  A
+A   XSX  A
+A   XSX  A
 A        A
 AAAAAAAAAA
