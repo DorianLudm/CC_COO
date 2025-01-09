@@ -227,6 +227,10 @@ public class Map{
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateFruit(voisin.getPosX(), voisin.getPosY()));
                 } else if (item.equals("ForestMushroom") || item.equals("JungleMushroom")) {
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(factory.instanciateMushroom(voisin.getPosX(), voisin.getPosY()));
+                } else if (item.equals("RareRock0")) {
+                    RareRock newRock = new RareRock(player.posX, player.posY, 0);
+                    newRock.setBgColor("\u001B[47m");
+                    map[voisin.getPosX()][voisin.getPosY()].setBackground(newRock);
                 } else if (item.equals("RareRock2")) { // possible modification en séparant la chaine en deux + automatisation pour tout n
                     map[voisin.getPosX()][voisin.getPosY()].setBackground(new RareRock(voisin.getPosX(), voisin.getPosY(), 2));
                 } else if (item.equals("RareRock3")) {
@@ -257,7 +261,6 @@ public class Map{
             player.posY = gtc.getPlayerY();
 
             RareRock newRock = new RareRock(player.posX, player.posY, 0);
-            newRock.setBgColor("\u001B[47m");
 
             player.addItem(newRock);
         }
