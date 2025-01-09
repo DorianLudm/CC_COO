@@ -7,7 +7,6 @@ public class Owl extends ForestPredator{
     private int stunned;
 
     Owl(int x, int y){
-        System.out.println("Hiboux jumpscare");
         this.posX = x;
         this.posY = y;
         this.detectionRadius = 3;
