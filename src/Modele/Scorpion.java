@@ -58,25 +58,7 @@ public class Scorpion extends JunglePredator{
             }
         }
         if(!isWaitingOnRock) {
-            for (int i = 0; i < moveRadius; i++) {
-                int x = this.posX;
-                int y = this.posY;
-                ArrayList<MapTile> moveSpaces = new ArrayList<>();
-                for (MapTile obj : Modele.Map.getInstance().getSurroundings(x, y)) {
-                    if (obj != null && obj.isReachable()) {
-                        moveSpaces.add(obj);
-                    }
-                }
-
-                Random rd = new Random();
-                int numberOfSpaces = moveSpaces.size();
-                if (numberOfSpaces > 0) {
-                    MapTile moveLocation = moveSpaces.get(rd.nextInt(numberOfSpaces));
-                    moveLocation.setForeground(this);
-                    this.setCoords(moveLocation.getPosX(), moveLocation.getPosY());
-                    map[x][y].setForeground(null);
-                }
-            }
+            randomMove(map, this);
         }
     }
 

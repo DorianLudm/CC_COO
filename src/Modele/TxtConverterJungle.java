@@ -36,6 +36,10 @@ public class TxtConverterJungle extends TxtConverter {
             case ' ':
                 result[0] = facto.instanciateEmptySpace(x,y);
                 break;
+            case '*':
+                result[0] = facto.instanciateEmptySpace(x,y);
+                result[1] = facto.instanciateRareRock(x,y);
+                break;
         }
         return result;
     }

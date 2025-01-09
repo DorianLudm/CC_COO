@@ -50,7 +50,10 @@ public class Map{
                     map[i][j] = new MapTile(factory.instanciateFruit(i, j));
                 }else if(repartition[i][j] > 0.59){
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j));
-                }else if(repartition[i][j] > 0.5875){
+                }else if(repartition[i][j] > 0.5888){
+                    map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j), factory.instanciateRareRock(i, j));
+                }
+                else if(repartition[i][j] > 0.5874){
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j), factory.instanciatePredator(i, j));
                 }else if(repartition[i][j] < 0.56){
                     map[i][j] = new MapTile(factory.instanciateTree(i, j));

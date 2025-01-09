@@ -34,4 +34,8 @@ public class ForestFactory implements Factory{
     public BiomePredator instanciatePredator(int x, int y, int type){
         return type == 0 ? new Owl(x, y) : new Fox(x, y);
     }
+    public RareRock instanciateRareRock(int x, int y){
+        Random rd = new Random();
+        return new RareRock(x,y,rd.nextInt(3));
+    }
 }

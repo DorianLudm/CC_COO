@@ -35,4 +35,8 @@ public class JungleFactory implements Factory{
     public BiomePredator instanciatePredator(int x, int y, int type) {
         throw new RuntimeException("méthode inadapté dans ce biome");
     }
+    public RareRock instanciateRareRock(int x, int y){
+        Random rd = new Random();
+        return new RareRock(x,y,rd.nextInt(3));
+    }
 }

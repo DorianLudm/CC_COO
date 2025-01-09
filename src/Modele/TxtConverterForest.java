@@ -39,6 +39,10 @@ public class TxtConverterForest extends TxtConverter {
                 result[0] = facto.instanciateEmptySpace(x,y);
                 result[1] = facto.instanciatePredator(x,y,1);
                 break;
+            case '*':
+                result[0] = facto.instanciateEmptySpace(x,y);
+                result[1] = facto.instanciateRareRock(x,y);
+                break;
         }
         return result;
     }
