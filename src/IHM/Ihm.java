@@ -79,8 +79,8 @@ public class Ihm{
                 preda = sc.next();
             }
             if(preda.equals("n")){
-                //chemin = "./lib/carte_base.txt";
-                chemin = "./lib/carte.txt";
+                chemin = "./lib/carte_base.txt";
+                //chemin = "./lib/carte.txt";   // A décommenter pour utiliser map de test
             }else{
                 chemin = "./lib/carte_preda.txt";
             }
