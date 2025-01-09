@@ -36,6 +36,6 @@ public class ForestFactory implements Factory{
     }
     public RareRock instanciateRareRock(int x, int y){
         Random rd = new Random();
-        return new RareRock(x,y,rd.nextInt(3));
+        return new RareRock(x,y,rd.nextInt(3)+1);
     }
 }
