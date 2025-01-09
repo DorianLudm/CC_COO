@@ -9,4 +9,8 @@ On utilise ce pattern par le fait que l'animal possède un ensemble de comportem
 
 ## Singleton
 Utilisé sur les classes "Player" et "Map". On notera par ailleurs que les états des animaux pourrait aussi en avoir.  
-Ce pattern permet de s'assurer qu'une seule instance de Player et de Map existe au sein du processus du jeu, en plus de permettre de facilement récuper celles-ci.
+Ce pattern permet de s'assurer qu'une seule instance de Player et de Map existe au sein du processus du jeu, en plus de permettre de facilement récuper celles-ci.  
+
+## Commande
+Gestion du retour dans le temps avec le pattern Commande en 2 classe GameTurnCommand et GameTurnInvocator  
+GameTurnCommand se charge de sauvegarder une copie de la réprésentation de la map et la position du joueur.  
