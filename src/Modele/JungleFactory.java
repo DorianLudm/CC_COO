@@ -37,6 +37,6 @@ public class JungleFactory implements Factory{
     }
     public RareRock instanciateRareRock(int x, int y){
         Random rd = new Random();
-        return new RareRock(x,y,rd.nextInt(3)+1);
+        return new RareRock(x,y,rd.nextInt(2)+2);
     }
 }
