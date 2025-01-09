@@ -51,7 +51,7 @@ public class Map{
                 }else if(repartition[i][j] > 0.59){
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j));
                 }else if(repartition[i][j] > 0.5888){
-                    map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j), factory.instanciateRareRock(i, j));
+                    map[i][j] = new MapTile(factory.instanciateRareRock(i, j));
                 }
                 else if(repartition[i][j] > 0.5874){
                     map[i][j] = new MapTile(factory.instanciateEmptySpace(i, j), factory.instanciatePredator(i, j));
